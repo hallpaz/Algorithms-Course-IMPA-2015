@@ -1,5 +1,7 @@
 # Assignment 0. Python 3.4
 
+from random import randrange
+
 def mdc(a: int, b: int) -> int:
     """Returns the MDC between two natural numbers
 
@@ -11,15 +13,6 @@ def mdc(a: int, b: int) -> int:
         steps += 1
     return a, steps
 
-#script for execution
-if __name__ == "__main__":
-
-    n = input("Digite o valor de N: ")
-    for limit in range(n):
-        run_mdc_with_limits(limit)
-
-
-
 def run_mdc_with_limits(limit: int, samples = 100000 ):
     max_steps = 0
     min_steps = -1
@@ -29,11 +22,19 @@ def run_mdc_with_limits(limit: int, samples = 100000 ):
         b = randrange(1, limit+1)
         res, steps = mdc(a, b)
 
-        max_steps = steps > max_steps ? steps : max_steps
+        if steps > max_steps:
+            max_steps = steps
         if steps < min_steps or min_steps == -1:
             min_steps = steps
         avg_steps += steps
     avg_steps /= samples
-    with open("steps_data.csv", 'w+') as steps_file:
-        line = "{0}, {1}, {2}, {3}".format(limit, min_steps, max_steps, avg_steps)
+    with open("steps_data.csv", 'a+') as steps_file:
+        line = "{0}, {1}, {2}, {3}\n".format(limit, min_steps, max_steps, avg_steps)
         steps_file.write(line)
+
+
+#script for execution
+if __name__ == "__main__":
+    n = int(input("Digite o valor de N: "))
+    for limit in range(1, n+1):
+        run_mdc_with_limits(limit)
