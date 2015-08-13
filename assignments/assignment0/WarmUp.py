@@ -13,7 +13,7 @@ def mdc(a: int, b: int) -> int:
         steps += 1
     return a, steps
 
-def run_mdc_with_limits(limit: int, filename = 'steps_data.csv' , samples = 1000000 ):
+def run_mdc_with_limits_randomly(limit: int, filename = 'steps_data.csv' , samples = 1000000 ):
     max_steps = 0
     min_steps = -1
     avg_steps = 0
@@ -33,8 +33,32 @@ def run_mdc_with_limits(limit: int, filename = 'steps_data.csv' , samples = 1000
         steps_file.write(line)
 
 
+def run_mdc_with_limits(limit: int, filename = 'allcombinations_data.csv' ):
+    max_steps = 0
+    min_steps = -1
+    avg_steps = 0
+    worst_case = []
+    counter = 0
+    for a in range(1, limit+1):
+        for b in range(1, a+1):
+            res, steps = mdc(a, b)
+            counter += 1
+            if steps > max_steps:
+                max_steps = steps
+                worst_case = [a, b]
+            if steps < min_steps or min_steps == -1:
+                min_steps = steps
+            avg_steps += steps
+    avg_steps /= counter
+    with open(filename, 'a+') as steps_file:
+        line = "{0}, {1}, {2}, {3}\n".format(a, min_steps, max_steps, avg_steps)
+        steps_file.write(line)
+    with open('worst_case.csv', 'a+') as worst_case_file:
+        worst_case_file.write("{0}, {1}, {2}\n".format(a, worst_case[0], worst_case[1] ) )
+
 #script for execution
 if __name__ == "__main__":
     n = int(input("Digite o valor de N: "))
     for limit in range(1, n+1):
         run_mdc_with_limits(limit)
+        print("iteracao: ", limit)

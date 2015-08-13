@@ -448,11 +448,7 @@ key "euclidean"
 \end_layout
 
 \begin_layout Enumerate
-O número médio de passos 
-\begin_inset Formula $\frac{12}{\pi^{2}}\ln2\ln n+0.06$
-\end_inset
-
-
+ds
 \end_layout
 
 \begin_layout Section
@@ -478,83 +474,12 @@ indent
 \begin_layout Standard
 A figura XXXX ilustra a curva de crescimento da previsão teórica para o
  número máximo de passos juntamente com a curva experimental.
- A figura XXXX ilustra, de maneira similar, a curva esperada pela previsão
+\end_layout
+
+\begin_layout Standard
+A figura XXXX ilustra, de maneira similar, a curva esperada pela previsão
  teórica para o número médio de passos do algoritmo e a curva obtida experimenta
 lmente.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/hallpaz/Workspace/python3_env/algorithms_impa/assignments/assignment0/exp_max_theo_max.png
-	lyxscale 70
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Curvas de máximo experimental e teórica
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename /home/hallpaz/Workspace/python3_env/algorithms_impa/assignments/assignment0/exp_avg_theo_avg.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Curvas de valor médio experimental e teórica
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Bibliography
