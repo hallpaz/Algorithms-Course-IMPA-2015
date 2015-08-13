@@ -13,7 +13,7 @@ def mdc(a: int, b: int) -> int:
         steps += 1
     return a, steps
 
-def run_mdc_with_limits(limit: int, samples = 100000 ):
+def run_mdc_with_limits(limit: int, filename = 'steps_data.csv' , samples = 1000000 ):
     max_steps = 0
     min_steps = -1
     avg_steps = 0
@@ -28,7 +28,7 @@ def run_mdc_with_limits(limit: int, samples = 100000 ):
             min_steps = steps
         avg_steps += steps
     avg_steps /= samples
-    with open("steps_data.csv", 'a+') as steps_file:
+    with open(filename, 'a+') as steps_file:
         line = "{0}, {1}, {2}, {3}\n".format(limit, min_steps, max_steps, avg_steps)
         steps_file.write(line)
 

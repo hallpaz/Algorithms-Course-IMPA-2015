@@ -1,0 +1,410 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\size large
+Instituto Nacional de Matemática Pura e Aplicada
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+Aluno: Hallison da Paz
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+Curso de Álgebra Linear e Aplicações
+\end_layout
+
+\begin_layout Plain Layout
+Trabalho Prático III
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+Rio de Janeiro, julho de 2015.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Pesquise sobre o Algoritmo de Euclides
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O algoritmo de Euclides utilizado para determinar o máximo divisor comum
+ (MDC) entre dois números naturais baseia-se sobre o fato de que o MDC entre
+ dois números naturais quaisquer é igual ao MDC entre o menor destes números
+ e a diferença entre o maior e o menor número.
+ Isto é:
+\end_layout
+
+\begin_layout Itemize
+Sejam a e b dois números naturais quaisquer.
+ Sem perda de generalidade, suponha a >= b.
+ Se k é o MDC entre a e b, então k também é o MDC entre b e a-b.
+\end_layout
+
+\begin_layout Standard
+Desta forma, no cálculo do MDC entre a e b, podemos substituir o maior deles
+ por max(b, a-b) e o menor por min(b, a-b).
+ O algoritmo para no momento em que o menor número iguala-se a zero, devolvendo
+ o resultado da subtração imediatamente anterior.
+ A convergência do algoritmo é muito mais rápida se utilizarmos a aritmética
+ modular, substituindo sucessivas subtrações do mesmo número pelo resto
+ da divisão entre os dois, como foi implementado.
+\end_layout
+
+\begin_layout Section
+Implemente o algoritmo de Euclides
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Este algoritmo encontra-se implementado no arquivo WarmUp.py (função mdc)
+\end_layout
+
+\begin_layout Section
+Meça o número de passos feitos pelo algoritmo de Euclides para calcular
+ o o máximo divisor comum de dois números naturais a e b, para 1 ≤ a,b ≤
+ N.
+ Como o número máximo varia em função de N? Como o número médio varia em
+ função de N?
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A medida que o valor de N aumenta, o número máximo de passos feitos pelo
+ algoritmo também aumenta.
+ BLA BLABLA
+\end_layout
+
+\begin_layout Section
+Pesquise sobre o desempenho do algoritmo de Euclides.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O desempenho do algoritmo de Euclides depende dos valores de entrada e da
+ relação que esses valores possuem entre si.
+ Por exemplo, sejam a,b com a >= b e 1 ≤ a,b ≤ N.
+ O número de passos necessários para computar o MDC entre a e b com este
+ algoritmo :
+\end_layout
+
+\begin_layout Enumerate
+Quando **a** é igual a **b** ou **b** é igual a 1 **(depende da implementação)**
+, o algoritmo executa um único passo.
+ Este é o 
+\emph on
+melhor caso
+\emph default
+ possível.
+\end_layout
+
+\begin_layout Enumerate
+Gabriel Lamé provou em 1884 que steps<=(lnn)/(lnphi)+(lnsqrt(5))/(lnphi)
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "euclidean"
+
+\end_inset
+
+ (numericamente: steps<=4.785log_(10)n+1.6723, ) o que é sempre inferior a
+ 5*log10(b), ou seja o número de dígitos do menor número.
+ Desta forma, no pior caso possível para este algoritmo, ele executará no
+ máximo XXXXX passos.
+ O pior caso ocorre quando a e b são ambos números que se sucedem na sequência
+ de Fibbonacci.
+\end_layout
+
+\begin_layout Enumerate
+ds
+\end_layout
+
+\begin_layout Section
+Compare as previsões teóricas com os seus resultados experimentais.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A figura XXXX ilustra a curva de crescimento da previsão teórica para o
+ número máximo de passos juntamente com a curva experimental.
+\end_layout
+
+\begin_layout Standard
+A figura XXXX ilustra, de maneira similar, a curva esperada pela previsão
+ teórica para o número médio de passos do algoritmo e a curva obtida experimenta
+lmente.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "euclidean"
+
+\end_inset
+
+ [internet] Disponível em: <http://mathworld.wolfram.com/EuclideanAlgorithm.html>
+ [acesso em 12 de agosto de 2015]
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "math_exchange"
+
+\end_inset
+
+What is the time complexity of Euclid's Algorithm (Upper bound,Lower Bound
+ and Average)?: [internet] Disponível em: <http://math.stackexchange.com/questions
+/258596/what-is-the-time-complexity-of-euclids-algorithm-upper-bound-lower-bound
+-and-a> [acesso em 11 de julho de 2015]
+\end_layout
+
+\end_body
+\end_document
