@@ -1,8 +1,17 @@
-#LyX 2.0 created this file. For more info see http://www.lyx.org/
-\lyxformat 413
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
 \textclass article
+\begin_preamble
+\usepackage{amsmath}
+\usepackage{tocbibind}
+\usepackage{tocloft}
+
+
+
+\renewcommand\refname{REFERÊNCIAS}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -12,13 +21,13 @@
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -30,15 +39,24 @@
 \use_hyperref false
 \papersize default
 \use_geometry true
-\use_amsmath 1
-\use_esint 1
-\use_mhchem 1
-\use_mathdots 1
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\justification true
 \use_refstyle 1
 \index Index
 \shortcut idx
@@ -110,7 +128,7 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Aluno: Hallison da Paz
@@ -140,14 +158,14 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
-Curso de Álgebra Linear e Aplicações
+Curso de Algoritmos
 \end_layout
 
 \begin_layout Plain Layout
-Trabalho Prático III
+Trabalho 0 (Aquecimento)
 \end_layout
 
 \end_inset
@@ -174,10 +192,10 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
-Rio de Janeiro, julho de 2015.
+Rio de Janeiro, agosto de 2015.
 \end_layout
 
 \end_inset
@@ -206,17 +224,73 @@ indent
 \end_layout
 
 \begin_layout Standard
-O algoritmo de Euclides utilizado para determinar o máximo divisor comum
- (MDC) entre dois números naturais baseia-se sobre o fato de que o MDC entre
- dois números naturais quaisquer é igual ao MDC entre o menor destes números
- e a diferença entre o maior e o menor número.
+O algoritmo de Euclides, utilizado para determinar o máximo divisor comum
+ (MDC) entre dois números naturais, baseia-se sobre o fato de que o MDC
+ entre dois números naturais quaisquer é igual ao MDC entre o menor destes
+ números e a diferença entre o maior e o menor número.
  Isto é:
 \end_layout
 
 \begin_layout Itemize
-Sejam a e b dois números naturais quaisquer.
- Sem perda de generalidade, suponha a >= b.
- Se k é o MDC entre a e b, então k também é o MDC entre b e a-b.
+Sejam 
+\series bold
+a
+\series default
+ e 
+\series bold
+b
+\series default
+ dois números naturais quaisquer.
+ Sem perda de generalidade, suponha 
+\series bold
+
+\begin_inset Formula $a\geq b$
+\end_inset
+
+
+\series default
+.
+ Se 
+\series bold
+k
+\series default
+ é o MDC entre 
+\series bold
+a
+\series default
+ e 
+\series bold
+b
+\series default
+, então 
+\series bold
+k
+\series default
+ também é o MDC entre 
+\series bold
+b
+\series default
+ e 
+\series bold
+a-b
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -226,7 +300,7 @@ Desta forma, no cálculo do MDC entre a e b, podemos substituir o maior deles
  o resultado da subtração imediatamente anterior.
  A convergência do algoritmo é muito mais rápida se utilizarmos a aritmética
  modular, substituindo sucessivas subtrações do mesmo número pelo resto
- da divisão entre os dois, como foi implementado.
+ da divisão entre os dois; implementaremos desta forma.
 \end_layout
 
 \begin_layout Section
@@ -250,7 +324,24 @@ indent
 \end_layout
 
 \begin_layout Standard
-Este algoritmo encontra-se implementado no arquivo WarmUp.py (função mdc)
+Este algoritmo encontra-se implementado no arquivo 
+\emph on
+WarmUp.py
+\emph default
+ (função mdc).
+ O algoritmo foi implementado na linguagem de programação Python versão
+ 3.4 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "python"
+
+\end_inset
+
+ e faz uso de recursos específicos de Python 3, como 
+\emph on
+function annotations, 
+\emph default
+não sendo retrocompatível com versões 2.x desta linguagem.
 \end_layout
 
 \begin_layout Section
@@ -278,17 +369,17 @@ indent
 \end_layout
 
 \begin_layout Standard
-O experimento foi conduzido a partir de amostragens aleatórias, uniformemente
- distribuídas, dos valores a e b dentro de um limite N estabelecido.
- O valor de N variou entre 1 e 1000 inclusive e para cada N foram realizadas
- 1000000 (1 milhão) de amostras.
- Dentro do conjunto destas amostras, tomou-se a média do número de passos
- calculados como a média associada a este N e o maior número de passos calculado
- correspondeu ao número máximo associado a este N.
-\end_layout
-
-\begin_layout Standard
-A figura 
+O experimento foi conduzido com valores de N entre 1 e 1000 inclusive.
+ Foram tomados todos os pares de números 
+\series bold
+a
+\series default
+ e 
+\series bold
+b
+\series default
+ nestes intervalos, de modo que 1 ≤ a,b ≤ N.
+ A figura 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Número-de-passos"
@@ -319,7 +410,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename /home/hallpaz/Workspace/python3_env/algorithms_impa/assignments/assignment0/min_max_avg.png
+	filename images/min_max_avg.png
 	lyxscale 70
 	scale 70
 
@@ -329,7 +420,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
@@ -363,11 +454,9 @@ reference "fig:Número-de-passos"
 
 \end_inset
 
-, percebemos que o número médio de passos executados pelo algoritmo é sempre
- crescente, de forma côncava.
- Como estamos lidando com uma média, permitimos valores fracionários.
- O número máximo de passos tem um comportamento não decrescente, pois o
- gráfico apresenta um aspecto similar a uma 
+, percebemos que o número máximo de passos tem um comportamento monótono
+ não decrescente.
+ A curva de máximo apresenta um aspecto similar ao de uma 
 \begin_inset Quotes eld
 \end_inset
 
@@ -375,10 +464,16 @@ escada
 \begin_inset Quotes erd
 \end_inset
 
-, isto é há trechos constantes.
- As oscilações percebidas em algumas regiões da curva de máximo se deve
- à forma como o experimento foi conduzido, valendo-se de valores aleatórios.
+, isto é há pontos de transição em que a função cresce e trechos em que
+ ela permanece constante.
  
+\end_layout
+
+\begin_layout Standard
+Com relação ao número médio de passos, por estamos lidando com uma média,
+ permitimos valores fracionários e verificamos uma curva monótona crescente,
+ de aspecto côncavo, isto é, sua taxa de crescimento reduz à medida que
+ o valor de N aumenta.
 \end_layout
 
 \begin_layout Section
@@ -404,52 +499,93 @@ indent
 \begin_layout Standard
 O desempenho do algoritmo de Euclides depende dos valores de entrada e da
  relação que esses valores possuem entre si.
- Por exemplo, sejam a,b com a >= b e 1 ≤ a,b ≤ N.
+ Por exemplo, sejam a,b com 
+\begin_inset Formula $a\geq b$
+\end_inset
+
+ e 
+\begin_inset Formula $1≤a,b≤N$
+\end_inset
+
+.
  O número de passos necessários para computar o MDC entre a e b com este
- algoritmo :
+ algoritmo pode ser analisado em três situações:
 \end_layout
 
 \begin_layout Enumerate
 Quando 
 \series bold
-a
-\series default
- é igual a 
-\series bold
 b
 \series default
- ou 
-\series bold
-b
-\series default
- é igual a 1, o algoritmo executa um único passo.
+ é igual a 1ou é o próprio MDC entre eles, o algoritmo executa um único
+ passo.
  Este é o 
 \emph on
 melhor caso
 \emph default
- possível e sempre ocorreu dentro de 1 milhão de amostras no experimento.
+ possível.
 \end_layout
 
 \begin_layout Enumerate
-Gabriel Lamé provou em 1884 que steps<=(lnn)/(lnphi)+(lnsqrt(5))/(lnphi)
- 
+Gabriel Lamé provou em 1884 que 
+\begin_inset Formula $passos\leq\frac{\ln n}{\ln\phi}+\frac{\ln\sqrt{5}}{\ln\phi}-2$
+\end_inset
+
+ , em que 
+\begin_inset Formula $\phi$
+\end_inset
+
+ é a razão áurea 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "euclidean"
+key "lame"
 
 \end_inset
 
- (numericamente: steps<=4.785log_(10)n+1.6723, ) o que é sempre inferior a
- 5*log10(b), ou seja o número de dígitos do menor número.
- Desta forma, no pior caso possível para este algoritmo, ele executará no
- máximo XXXXX passos.
- O pior caso ocorre quando a e b são ambos números que se sucedem na sequência
- de Fibbonacci.
+, ou numericamente: 
+\begin_inset Formula $passos\leq4.785\log_{10}n-0,3277$
+\end_inset
+
+.
+ Neste caso, 
+\begin_inset Formula $n$
+\end_inset
+
+ corresponde ao menor dos números entre 
+\series bold
+a
+\series default
+ e 
+\series bold
+b
+\series default
+.
+ Fazendo a e b variarem entre todos os números naturais possíveis entre
+ 1 e N, podemos substituir n por N para obter uma curva que represente a
+ variação do número máximo de passos com o valor de N e se quisermos a quantidad
+e exata de passos para um dado N, devemos tomar o piso do resultado (visto
+ que são quantidades inteiras).
 \end_layout
 
 \begin_layout Enumerate
-O número médio de passos 
-\begin_inset Formula $\frac{12}{\pi^{2}}\ln2\ln n+0.06$
+O número médio de passos, quando computado em relação à média de passos
+ executados ao escolhermos 
+\series bold
+a
+\series default
+ e 
+\series bold
+b 
+\series default
+aleatoriamente com distribuição uniforme é dado por: 
+\begin_inset Formula $\frac{12}{\pi^{2}}\ln2\ln N+0.06$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wikipedia"
+
 \end_inset
 
 
@@ -476,24 +612,52 @@ indent
 \end_layout
 
 \begin_layout Standard
-A figura XXXX ilustra a curva de crescimento da previsão teórica para o
- número máximo de passos juntamente com a curva experimental.
- A figura XXXX ilustra, de maneira similar, a curva esperada pela previsão
- teórica para o número médio de passos do algoritmo e a curva obtida experimenta
-lmente.
+A figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:max_exp_theo"
+
+\end_inset
+
+ ilustra a curva de crescimento da previsão teórica para o número máximo
+ de passos juntamente com a curva experimental.
+ Nesta figura, é possível verificar que o resultado experimental está perfeitame
+nte compatível com o resultado teórico.
+ A curva teórica, dada por 
+\begin_inset Formula $passos\leq4.785\log_{10}n-0,3277$
+\end_inset
+
+, atua como uma cota superior para o número máximo de passos, coincindido
+ com os experimento exatamente nos ponto de transição (quando o valor experiment
+al cresce).
+ Ainda na figura, é possível ver que se aproximarmos o valor da curva teórica
+ para o maior inteiro menor que este valor, ou seja: tomarmos 
+\begin_inset Formula $passo=\llcorner4.785\log_{10}n-0,3277\lrcorner$
+\end_inset
+
+, teremos as duas curvas coincidindo, o que é ilustrado na figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:max-floor"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
+s
 \begin_inset Graphics
-	filename /home/hallpaz/Workspace/python3_env/algorithms_impa/assignments/assignment0/exp_max_theo_max.png
+	filename images/exp_max_theo_max.png
 	lyxscale 70
+	scale 55
 
 \end_inset
 
@@ -501,9 +665,15 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:max_exp_theo"
+
+\end_inset
+
 Curvas de máximo experimental e teórica
 \end_layout
 
@@ -528,8 +698,15 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Graphics
-	filename /home/hallpaz/Workspace/python3_env/algorithms_impa/assignments/assignment0/exp_avg_theo_avg.png
+	filename images/exp_max_theo_maxfloor.png
+	lyxscale 70
+	scale 50
 
 \end_inset
 
@@ -537,9 +714,84 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:max-floor"
+
+\end_inset
+
+Curva de máximo experimental e piso do valor teórico
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:medio_avg_theo"
+
+\end_inset
+
+ ilustra, de maneira similar, a curva esperada pela previsão teórica para
+ o número médio de passos do algoritmo e a curva obtida experimentalmente.
+ É possível perceber que ambas as curvas são monótonas crescentes e côncavas.
+ O resultado experimental apresentou valores um pouco abaixo do resultado
+ teórico, pois a previsão teórica é calculada tomando-se 
+\series bold
+a
+\series default
+ e 
+\series bold
+b
+\series default
+ aleatoriamente, enquanto nosso experimento tomou todos os pares possíveis
+ entre 1 e N, inclusive, sem repetição.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/exp_avg_theo_avg.png
+	lyxscale 70
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:medio_avg_theo"
+
+\end_inset
+
 Curvas de valor médio experimental e teórica
 \end_layout
 
@@ -557,15 +809,275 @@ Curvas de valor médio experimental e teórica
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "euclidean"
+\begin_layout Standard
+Adicionalmente, a figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:avg_random"
 
 \end_inset
 
- [internet] Disponível em: <http://mathworld.wolfram.com/EuclideanAlgorithm.html>
- [acesso em 12 de agosto de 2015]
+ ilustra o resultado do experimento conduzido a partir de amostragens aleatórias
+, uniformemente distribuídas, dos valores a e b dentro de um limite N estabeleci
+do.
+ O valor de N variou entre 1 e 1000, inclusive, e para cada N foram realizadas
+ 1 milhão de amostras.
+ Neste caso, o procedimento de cálculo da média foi realizado da mesma forma
+ que o cálculo da previsão teórica 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wikipedia"
+
+\end_inset
+
+ que resulta em 
+\begin_inset Formula $\frac{12}{\pi^{2}}\ln2\ln N+0.06$
+\end_inset
+
+, fazendo com que as curvas sejam muito próximas.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/exp_avg_theo_avg_random.png
+	lyxscale 70
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:avg_random"
+
+\end_inset
+
+Curvas de média por amostragem aleatória e teórica
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Extra: análise do pior caso
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Segundo o Teorema de Lamé 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lame"
+
+\end_inset
+
+, se o algoritmo de Euclides executa P passos para calcular o MDC entre
+ dois números 
+\series bold
+a 
+\series default
+e
+\series bold
+ b
+\series default
+, com 
+\begin_inset Formula $a\geq b\geq1$
+\end_inset
+
+, então os menores números que atendem à esta condição são 
+\begin_inset Formula $a=F_{p+2}$
+\end_inset
+
+ e 
+\begin_inset Formula $b=F_{p+1}$
+\end_inset
+
+ , em que 
+\begin_inset Formula $\{F_{k}\}$
+\end_inset
+
+é a sequência de Fibonacci.
+ Portanto, teoricamente, quando os pares selecionados são ambos números
+ da sequência de Fibonacci, ocorre o pior caso computacional do algoritmo
+ de Euclides.
+ Podemos verificar isto experimentalmente requisitando a impressão dos valores
+ de 
+\series bold
+a
+\series default
+ e 
+\series bold
+b
+\series default
+ para um arquivo, assim como o número máximo de passos para cada valor de
+ N.
+ A tabela 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Pares-pior-caso"
+
+\end_inset
+
+ apresenta o resultado obtido para os pares que produziram o 
+\begin_inset Quotes eld
+\end_inset
+
+pior caso
+\begin_inset Quotes erd
+\end_inset
+
+, isto é, o maior número de passos para N entre 1 e 1000 inclusive.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/tabela_pior_caso.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Pares-pior-caso"
+
+\end_inset
+
+Pares que produziram os piores casos entre 1 e 1000
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Para os valores de N entre os valores representados na tabela, os pares
+ de número se repetiram até o próximo elemento da sequência, como esperado.
+ O arquivo 
+\emph on
+worst_case.csv
+\emph default
+ apresenta o resultado completo do experimento, a tabela 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Pares-pior-caso"
+
+\end_inset
+
+ foi obtida pela filtragem deste arquivo com a função 
+\emph on
+filter_worst_cases
+\emph default
+ em 
+\emph on
+WarmUp.py
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+
+\lang brazilian
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+refname{REFERÊNCIAS} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "python"
+
+\end_inset
+
+Python; [internet] Disponível em: <https://www.python.org/> [acesso em 12
+ de agosto de 2015]
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "lame"
+
+\end_inset
+
+ Lamé's Theorem - the Very First Application of Fibonacci Numbers.
+ [internet] Disponível em: <http://www.cut-the-knot.org/blue/LamesTheorem.shtml>
+ [acesso em 13 de agosto de 2015]
 \end_layout
 
 \begin_layout Bibliography
@@ -579,6 +1091,18 @@ What is the time complexity of Euclid's Algorithm (Upper bound,Lower Bound
  and Average)?: [internet] Disponível em: <http://math.stackexchange.com/questions
 /258596/what-is-the-time-complexity-of-euclids-algorithm-upper-bound-lower-bound
 -and-a> [acesso em 11 de julho de 2015]
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "wikipedia"
+
+\end_inset
+
+Euclidean algorithm, Algorithmic_efficiency.
+ [internet] Disponível em: <https://en.wikipedia.org/wiki/Euclidean_algorithm#Algo
+rithmic_efficiency> [acesso em 12 de agosto de 2015]
 \end_layout
 
 \end_body

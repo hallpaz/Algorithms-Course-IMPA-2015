@@ -6,6 +6,8 @@ from math import log, log10, pi, floor
 titles = ['min_value', 'max_value', 'avg_value']
 colors = ['blue', 'red', 'green']
 filename = 'allcombinations_data.csv'
+images_folder = '/images/'
+data_folder = '/data/'
 
 def plot_min_max_avg_together(filename='min_max_avg.png', xlimit = 1000):
 
@@ -13,7 +15,7 @@ def plot_min_max_avg_together(filename='min_max_avg.png', xlimit = 1000):
         # 0 index is for the x axis
         pyplot.plot(plotdata[0], plotdata[i+1], color = colors[i], label = titles[i])
 
-    pyplot.axis([ 0, xlimit, 0, 25 ])
+    pyplot.axis([ 0, xlimit, 0, 20 ])
     pyplot.legend()
     pyplot.title('Min, Max and Avg values')
     pyplot.xlabel('N')
@@ -28,12 +30,12 @@ def plot_experimental_and_theoretical_curves(exp_data, exp_label, theoretical_fu
     pyplot.plot(x, exp_data[0:xlimit], color = exp_color, label = 'Experimental')
     pyplot.plot(x, theoretical_data, color = theoretical_color, label = 'Theoretical')
 
-    pyplot.axis([ 0, xlimit, 0, 25 ])
+    pyplot.axis([ 0, xlimit, 0, 20 ])
     pyplot.legend()
     pyplot.title(exp_label + " and " + theoretical_label)
     pyplot.xlabel('N')
     pyplot.ylabel('number of steps')
-    pyplot.savefig(exp_label + "_" + theoretical_label + "floor.png")
+    pyplot.savefig( exp_label + "_" + theoretical_label + "floor.png")
 
 
 if __name__ == '__main__':
@@ -47,7 +49,7 @@ if __name__ == '__main__':
     plot_min_max_avg_together()
 
     pyplot.figure(2)
-    plot_experimental_and_theoretical_curves(plotdata[2], 'exp_max', lambda x: (4.785*log10(x) + 1.6723-2), 'theo_max', exp_color='red')
+    plot_experimental_and_theoretical_curves(plotdata[2], 'exp_max', lambda x: floor(4.785*log10(x) -0.3277), 'theo_max', exp_color='red')
 
     pyplot.figure(3)
     plot_experimental_and_theoretical_curves(plotdata[3], 'exp_avg', lambda x: ( 12/(pi*pi) )*log(2)*log(x) + 0.06, 'theo_avg', theoretical_color='magenta')
