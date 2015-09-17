@@ -1,4 +1,6 @@
 
+from TestScripts import *
+
 
 def selection_sort(array: list)->list:
     """This function implements the selection sort method"""
@@ -86,7 +88,7 @@ def quicksort(array: list, start = 0, end = None):
         quicksort(array, point, end)
 
 def heapsort(array: list)->list:
-    """Heapsort algorith"""
+    """Heapsort algorithm"""
 
     pass
 
@@ -125,7 +127,3 @@ def adaptative_quicksort(array: list, start = 0, end = None, threshold = 10):
 
 if __name__ == "__main__":
     print("Sorting file called as main script")
-    sorting_algorithms = [selection_sort, insertion_sort, mergesort, quicksort, heapsort, adaptative_mergesort, adaptative_quicksort]
-
-    for algorithm in sorting_algorithms:
-        validate_sorting_algorithm(algorithm)
