@@ -38,3 +38,29 @@ def generate_list_many_repetitions(list_length:int, rep_percentage:int)->list:
     random.shuffle(mylist)
 
     return mylist
+
+
+def validate_sorting_algorithm(sort_algorithm, list_length= 100, stress_factor = 10):
+    for i in range(stress_factor):
+        test_list = generate_list_random_numbers(list_length)
+        sort_algorithm(test_list)
+        for i in range(len(test_list)-1):
+            if(test_list[i] > test_list[i+1]):
+                print("Error with sorting function: " + sort_algorithm.__name__)
+                return
+    print("Function: " + sort_algorithm.__name__ "is Ok")
+
+
+def readfile(filename:str)->list:
+    with open(filename, 'r') as file:
+        return file.read().splitlines()
+
+def compare_algorithms_with_random_numbers(sorting_algorithms:list, min_size=100, max_size=10000):
+    sorting_times = []
+
+    for size in range(min_size, maxsize+1):
+        teste_list = generate_list_random_numbers(size)
+        times = []
+        for algorithm in sorting_algorithms:
+            
+            sorting_times.append()
