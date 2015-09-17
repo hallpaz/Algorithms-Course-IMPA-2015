@@ -126,3 +126,6 @@ def adaptative_quicksort(array: list, start = 0, end = None, threshold = 10):
 if __name__ == "__main__":
     print("Sorting file called as main script")
     sorting_algorithms = [selection_sort, insertion_sort, mergesort, quicksort, heapsort, adaptative_mergesort, adaptative_quicksort]
+
+    for algorithm in sorting_algorithms:
+        validate_sorting_algorithm(algorithm)
