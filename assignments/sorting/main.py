@@ -146,15 +146,6 @@ def compare_adaptative_algorithm(algorithm, list_generator, list_length=10000):
             cum_time += (clock()-start)
         sorting_times.append(cum_time/smooth_times)
 
-    # left_edges = [i for i in range(len(thresholds))]
-    # width = 0.4
-    # pyplot.bar(left_edges, sorting_times, color=colors[algorithm.__name__])
-    # pyplot.ylabel('Time (s)')
-    # pyplot.title("Execution time many thresholds " + algorithm.__name__ )
-    # pyplot.legend()
-    # pyplot.xticks([i + width/2 for i in left_edges], thresholds, rotation='vertical')
-    # pyplot.savefig( images_folder +  "comparison_" + algorithm.__name__ + ".png")
-    # pyplot.close()
     pyplot.figure()
     #for i in range(2, len(sorting_algorithms)):
     pyplot.plot(thresholds, sorting_times, color = colors[algorithm.__name__], label = algorithm.__name__)
@@ -209,16 +200,15 @@ def compare_algorithms_with_repetitions(sorting_algorithms:list, rep_factor, xsa
 
 
 if __name__ == '__main__':
-    #sorting_algorithms = [selection_sort, insertion_sort, mergesort, quicksort, heapsort, adaptative_mergesort, adaptative_quicksort]
-    sorting_algorithms = [selection_sort, insertion_sort, tco_quicksort, mergesort, heapsort ]
+    sorting_algorithms = [selection_sort, insertion_sort, quicksort, mergesort, heapsort, tco_quicksort, adaptative_mergesort, adaptative_quicksort, adaptative_quicksort_v2 ]
     list_generator_functions = [generate_list_random_numbers, generate_list_ordered, generate_list_reverse_ordered, generate_list_unique]
 
-    #for algorithm in sorting_algorithms:
-    #    validate_sorting_algorithm(algorithm)
+    for algorithm in sorting_algorithms:
+        validate_sorting_algorithm(algorithm)
 
-    xsamples  = [x*100 for x in range(1, 10) ]
-    xsamples = xsamples + [x*1000 for x in range(1, 10)]
-    xsamples = xsamples + [x*10000 for x in range(1, 5)]
+    # xsamples  = [x*100 for x in range(1, 10) ]
+    # xsamples = xsamples + [x*1000 for x in range(1, 10)]
+    # xsamples = xsamples + [x*10000 for x in range(1, 5)]
     #for list_generator in list_generator_functions:
     #    print("Applying test method " + list_generator.__name__)
     #    compare_algorithms_with_generated_data(sorting_algorithms, list_generator)
@@ -235,7 +225,7 @@ if __name__ == '__main__':
     #read_and_plot(sorting_algorithms, generate_list_many_repetitions)
 
     #compare_adaptative_algorithm(adaptative_quicksort_v2, generate_list_random_numbers)
-    compare_adaptative_algorithm(adaptative_quicksort, generate_list_random_numbers)
+    #compare_adaptative_algorithm(adaptative_quicksort, generate_list_random_numbers)
     #compare_adaptative_algorithm(adaptative_mergesort, generate_list_random_numbers)
     #for rep_factor in range(1000, 100000, 1000):
     #    compare_algorithms_with_repetitions([tco_quicksort], rep_factor, xsamples)

@@ -43,8 +43,7 @@ def generate_list_many_repetitions(list_length:int, rep_percentage:int)->list:
 
 def validate_sorting_algorithm(sort_algorithm, list_length= 100, stress_factor = 10):
     for i in range(stress_factor):
-        #test_list = list(range(list_length, 0, -1))
-        #test_list = [5, 6, 1, 7, 8, 7, 2, 3, 3, 3]*2
+
         test_list = generate_list_random_numbers(list_length)
         sort_algorithm(test_list)
         for i in range(len(test_list)-1):

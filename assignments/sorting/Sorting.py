@@ -3,9 +3,9 @@ import random
 def selection_sort(array: list)->list:
     """This function implements the selection sort method"""
 
-    for i in range(len(array)-1):
+    for i in range(len(array)):
         min_index = i
-        for j in range(i, len(array)-1):
+        for j in range(i, len(array)):
             if(array[j] < array[min_index]):
                 min_index = j
         array[i], array[min_index] = array[min_index], array[i]
@@ -55,7 +55,7 @@ def merge(array: list, start: int, middle: int, end: int):
 
 def mergesort(array: list, start= 0, end= None):
     """ This function implements the merge sort algorithm """
-    if(end is None): #can't rely on None, because 0 is equal to false
+    if(end is None):
         end = len(array)-1
 
     if(start < end):
@@ -65,7 +65,6 @@ def mergesort(array: list, start= 0, end= None):
         merge(array, start, middle, end)
 
     return
-
 
 def partition(array, start, end):
     i = start
@@ -85,10 +84,10 @@ def rdm_partition(array: list, start: int, end: int)->int:
 def quicksort(array, start=0, end=None):
     if(end is None):
         end = len(array)-1
-    if end > start: # Verifica se a lista tem 2 ou mais itens
-        pivotIndex = rdm_partition(array, start, end) # Pega a posicao do pivo
-        quicksort(array, start, pivotIndex - 1) # Ordena recursivamente os itens menores que o pivo
-        quicksort(array, pivotIndex + 1, end) # Ordena recursivamente os itens maiores que o pivo
+    if end > start:
+        pivotIndex = rdm_partition(array, start, end)
+        quicksort(array, start, pivotIndex - 1)
+        quicksort(array, pivotIndex + 1, end)
 
 def max_heapify(array:list, index:int, heap_size = None):
     """Makes the ith element of a list to respect the max heap property"""
@@ -198,7 +197,6 @@ def adaptative_quicksort_v2(array: list, start = 0, end = None, threshold = 10):
         else:
             adaptative_quicksort(array, start, pivotIndex - 1)
             adaptative_quicksort(array, pivotIndex + 1, end)
-
     return
 
 
