@@ -1,0 +1,1775 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{amsmath}
+\usepackage{tocbibind}
+\usepackage{tocloft}
+
+
+
+\renewcommand\refname{REFERÊNCIAS}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\size large
+Instituto Nacional de Matemática Pura e Aplicada
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Aluno: Hallison da Paz
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Curso de Algoritmos
+\end_layout
+
+\begin_layout Plain Layout
+Trabalho 1 - Ordenação
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Rio de Janeiro, setembro de 2015.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Implemente os algoritmos estudados em aula (seleção, inserção, mergesort,
+ quicksort, heapsort).
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Algoritmos estão implementados no arquivo 
+\series bold
+\emph on
+Sorting.py
+\series default
+\emph default
+.
+ Foi utilizada a linguagem de programação Python 3.4 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "python"
+
+\end_inset
+
+.
+ Por utilizar alguns recursos específicos das versões 3.x da linguagem Python,
+ este programa não é compatível (não executará) com as versões 2.x desta
+ linguagem.
+ Todo o código assim como os resultados completos obtidos podem ser encontrados
+ em 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hallpaz-github"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Compare o esforço necessário para a implementação correta de cada algoritmo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Os algoritmos 
+\emph on
+selection sort
+\emph default
+ e 
+\emph on
+insertion sort
+\emph default
+ demandaram um baixo esforço de implementação, visto que a ideia base por
+ trás desses dois algoritmos é bem intuitiva para o raciocínio humano e
+ eles não requerem manipulações complicadas de índices.
+ A ideia do 
+\emph on
+merge sort
+\emph default
+ é mais elaborada que a dos dois algoritmos anteriores, requerindo um esforço
+ um pouco maior.
+ Embora a estratégia dividir para conquistar não seja tão imediata quanto
+ as abordagens diretas dos outros algoritmos, o procedimento de 
+\emph on
+merge
+\emph default
+ não é tão complicado de realizar, visto que conseguimos pensar nele com
+ uma analogia à junção ordenada de dois blocos de cartas ordenadas.
+ Entre 
+\emph on
+quicksort
+\emph default
+ e o 
+\emph on
+heapsort
+\emph default
+, considero o primeiro aquele que demanda maior esforço para a implementação
+ correta.
+ Embora o heapsort tenha como base uma outra estrutura de dados (heap),
+ uma vez entendida sua propriedade (relação entre os elementos pai e filhos),
+ não é tão difícil codificar o procedimento que atua sobre os elementos
+ para manter esta propriedade.
+ Com este procedimento implementado corretamente, o algoritmo heapsort em
+ si fica bastante simples.
+ Quanto ao quicksort, a própria ideia de separar os elementos menores que
+ e maiores que um elemento pivô em tempo linear já é um procedimento de
+ maior esforço.
+\end_layout
+
+\begin_layout Section
+Compare o desempenho dos algoritmos em sequências de números inteiros geradas
+ aleatoriamente.
+ Use sequências de 100 até 100000 números.
+ (E mais se for possível.) Meça e compare os tempos de cada algoritmo.
+ 
+\end_layout
+
+\begin_layout Standard
+As figuras 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sel-ins"
+
+\end_inset
+
+ e 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:quick-merge-heap"
+
+\end_inset
+
+ ilustram as curvas obtidas separando os algoritmos de seleção e inserção,
+ que executam em tempo 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+ dos demais, que executam em 
+\begin_inset Formula $O(nlogn)$
+\end_inset
+
+ (desconsiderando o pior caso do quicksort, que não ocorreu).
+ Percebe-se que os algoritmos 
+\emph on
+selection sort
+\emph default
+ e 
+\emph on
+insertion sort
+\emph default
+ demandam muito mais tempo que os demais, o que distorceria a escala de
+ comparação se fossem colocados junto a eles.
+ Estes algoritmos levaram mais de 1000 segundos para executar sobre uma
+ entrada de tamanho 100000, enquanto o mergesort, heapsort e quicksort levaram
+ algo em torno de 2 segundos.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align left
+\begin_inset Graphics
+	filename images/ins_selgenerate_list_random_numbers.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sel-ins"
+
+\end_inset
+
+Algoritmos de seleção e inserção
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align left
+\begin_inset Graphics
+	filename images/log_alggenerate_list_random_numbers.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:quick-merge-heap"
+
+\end_inset
+
+Quicksort, mergesort e heapsort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Desempenho dos algorimos por classes em sequências aleatórias
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Embora o algoritmo de inserção, ao contrário do de seleção, leve em conta
+ a forma da entrada, podendo realizar menos operações, verificou-se nos
+ testes com sequências aleatórias que o 
+\emph on
+insertion sort
+\emph default
+ levou mais tempo para terminar do que o 
+\emph on
+selection sort
+\emph default
+.
+ Uma possível explicação para este fato pode ser a maior quantidade de operações
+ de escrita em variáveis realizadas pelo 
+\emph on
+insertion sort, 
+\emph default
+que são mais custosas em tempo que as comparações.
+\end_layout
+
+\begin_layout Section
+Repita os testes com sequências especiais: ordenadas em ordem crescente,
+ ordenadas em ordem descrescente, com muitas repetições, com poucas repetições.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:seq-ordenadas"
+
+\end_inset
+
+ ilustra o desempenho dos algoritmos sobre sequências ordenadas de forma
+ crescente.
+ Como esperado, o 
+\emph on
+insertion sort
+\emph default
+ apresentou o melhor desempenho sobre esta entrada particular, com eficiência
+ O(n), enquanto os demais algoritmos
+\emph on
+ 
+\emph default
+não apresentaram diferenças expressivas de desempenho (pequenas flutuações
+ de tempo são normais devido à gerência dos recursos computacionais pelo
+ sistema operacional).
+ 
+\end_layout
+
+\begin_layout Standard
+Para o algoritmo 
+\emph on
+quicksort
+\emph default
+, se escolhermos como pivô sempre o último ou primeiro elemento dos subvetores
+ de cada chamada recursiva, teremos um 
+\emph on
+overflow
+\emph default
+ da pilha de execução, pois cada nova chamada recursiva atuará sobre um
+ subvetor de tamanho 1 unidade menor que o da chamada anterior, gerando
+ um consumo de espaço O(n).
+ Por conta disso, a cada passo, o pivô foi escolhido aleatoriamente por
+ meio de um procedimento auxiliar que realiza a troca entre o último elemento
+ do subvetor e um outro elemento em uma posição determinada aleatoriamente
+ neste subvetor.
+ Assim, o caso ordenado deixa de ser o pior caso de execução do quicksort.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/ins_selgenerate_list_ordered.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Selection sort e Insertion Sort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/log_alggenerate_list_ordered.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Quicksort, mergesort e heapsort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:seq-ordenadas"
+
+\end_inset
+
+Desempenho dos algoritmos em sequências ordenadas em ordem crescente
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:seq-reversas"
+
+\end_inset
+
+ ilustra o desempenho dos algoritmos sobre sequências ordenadas de forma
+ decrescente.
+ Na comparação entre 
+\emph on
+insertion sort
+\emph default
+ e 
+\emph on
+selection sort
+\emph default
+, vemos que o desempenho do 
+\emph on
+insertion sort
+\emph default
+ piorou consideravelmente, demandando muito mais tempo que o selection sort
+ realizar a ordenação.
+ Quanto aos demais algoritmos, não houve mudanças significativas.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/ins_selgenerate_list_reverse_ordered.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Selection sort e Insertion Sort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/log_alggenerate_list_reverse_ordered.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Quicksort, mergesort e heapsort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:seq-reversas"
+
+\end_inset
+
+Desempenho dos algoritmos em sequências ordenadas em ordem decrescente
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:todos-unicos"
+
+\end_inset
+
+ apresenta as curvas obtidas para sequências com todos os elementos únicos.
+ Desta vez, o insertion sort apresenta um ligeiro ganho de desempenho em
+ relação ao selection sort.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/ins_selgenerate_list_unique.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Selection sort e insertion sort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/log_alggenerate_list_unique.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Merge, Heap e Quick sorts
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:todos-unicos"
+
+\end_inset
+
+Sequências com todos os elementos únicos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:vinte-rep"
+
+\end_inset
+
+ ilustra o caso em que a entrada apresenta poucas repetições (20%), enquanto
+ a figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:setenta-rep"
+
+\end_inset
+
+ ilustra o caso com muitas repetições.
+ Percebe-se que com o aumento do número de elementos repetidos, o desempenho
+ do 
+\emph on
+insertion sort
+\emph default
+ varia sensivelmente, terminando cada vez mais rápido.
+ 
+\end_layout
+
+\begin_layout Standard
+Infelizmente, esta entrada especial é um caso patológico para o algoritmo
+ quicksort como o implementamos.
+ Mesmo que o elemento pivô não esteja mais fixo, evitando overflow em sequências
+ ordenadas (crescentes ou decrescentes), a inserção de muitos elementos
+ repetidos ocasiona um número de chamadas recursivas alto, que no pior caso
+ pode ser 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+ Para resolver este problema, implementou-se uma versão do quicksort em
+ que chama-se apenas uma recursão no menor subvetor e utiliza-se de uma
+ iteração para reaproveitar o mesmo ponto da pilha, assim o consumo de memória
+ do quicksort fica em 
+\begin_inset Formula $O(logn)$
+\end_inset
+
+.
+ Percebe-se a natureza quadrática do pior caso do quicksort, que com cada
+ vez mais repetições na entrada, fica mais próximo dos algoritmos de seleção
+ e inserção do que do mergesort e heapsort.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/ins_selrepetitions_20.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Selection e insertion sort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/log_algrepetitions_20.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mergesort, heapsort e quicksort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:vinte-rep"
+
+\end_inset
+
+Desempenho dos algoritmos em sequências com 20% de repetições
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Quanto aos demais algoritmos, vemos que o desempenho do heapsort supera
+ o do mergesort para o caso em que há muitos elementos repetidos (com 50%
+ de repetição as curvas já são bastante próximas e com 60%, o heapsort já
+ supera o mergesort).
+ De fato, o mergesort sempre realiza a divisão em subproblemas até o último
+ nível, independente da entrada, enquanto a flutuação de elementos no heap
+ pode ser menos custosa.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/ins_selrepetitions_70.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Insertion, selection e quick sort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/log_algrepetitions_70.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mergesort e heapsort
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:setenta-rep"
+
+\end_inset
+
+Desempenho dos algoritmos em sequências com 70% de elementos repetidos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+No caso de mergesort e quicksort, interrompa a recursão quando o subproblema
+ for pequeno e execute ordenação por inserção em cada subproblema.
+ No caso de quicksort, faça o mesmo executando ordenação por inserção uma
+ única vez, ao final do processo.
+ Vale a pena fazer essas modificações? A partir de quando? Para qual definição
+ de pequeno? 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:algoritmos-adaptativos"
+
+\end_inset
+
+ ilustra o desempenho dos algoritmos adaptativos quando a recursão é interrompid
+a em diversos pontos entre 1 e 101.
+ Para a comparação entre os algoritmos, utilizou-se uma mesma sequência
+ com 10000 elementos gerada aleatoriamente.
+\end_layout
+
+\begin_layout Standard
+Observa-se que em alguns casos vale a pena realizar estas modificações,
+ pois o overhead embutido pela estratégia dividir para conquistar dos algoritmos
+ 
+\emph on
+merge sort
+\emph default
+ e 
+\emph on
+quicksort
+\emph default
+ fazem com que a complexidade destes algoritmos esconda uma constante que
+ os torna menos eficientes que o 
+\emph on
+insertion sort 
+\emph default
+para valores pequenos.
+ Particularmente, observou-se que para valores menores que 40 elementos,
+ o desempenho do mergesort adaptativo foi superior ao original.
+ Já no caso do quicksort, na implementação com chamadas ao insertion sort
+ em cada subvetor, o desempenho é superior mesmo para subvetores de tamanho
+ pouco superior a 100 elementos.
+ A implementação adaptativa que realiza uma única chamada ao 
+\emph on
+insertion sort
+\emph default
+ obteve ganhos de desempenho até uma faixa pouco superior aos 40 elementos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/adaptative_mergesortgenerate_list_random_numbers_smoothed.png
+	lyxscale 50
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Mergesort-adaptativo"
+
+\end_inset
+
+Mergesort adaptativo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/adaptative_quicksort_v2generate_list_random_numbers_smoothed.png
+	lyxscale 50
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Quicksort-adaptativo"
+
+\end_inset
+
+Quicksort adaptativo (duas chamadas ao insertion sort)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/adaptative_quicksortgenerate_list_random_numbers_smoothed.png
+	lyxscale 60
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Quicksort adaptativo (uma chamada ao insertion sort)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:algoritmos-adaptativos"
+
+\end_inset
+
+Desempenho dos algoritmos adaptativos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Adapte os seus programas para ordenar palavras.
+ Teste o desempenho de cada algoritmo no arquivo BR4.txt contendo 10000 palavras
+ e no arquivo BR5.txt contendo 100000 palavras.
+ Houve mudança do desempenho relativo dos algoritmos agora que comparar
+ valores é mais complicado? 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+indent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As figuras 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ordenação-palavras"
+
+\end_inset
+
+ e 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:palavras-5"
+
+\end_inset
+
+ ilustram o resultado obtido para o desempenho desses algoritmos sobre as
+ palavras contidas nos arquivos de teste.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/comparison_BR4.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Todos os algoritmos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/comparison_logBR4.png
+	lyxscale 50
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Apenas merge, heap e quicksort 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ordenação-palavras"
+
+\end_inset
+
+Desempenho na ordenação com palavras BR4.txt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/comparison_BR5.png
+	lyxscale 50
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Todos os algoritmos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/comparison_logBR5.png
+	lyxscale 60
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Apenas merge, heap e quicksort 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:palavras-5"
+
+\end_inset
+
+Desempenho na ordenação com palavras BR4.txt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pode-se observar que não houve mudança no desempenho relativo dos algoritmos.
+ O fato de que é mais complicado comparar palavras do que números inteiros
+ tem influência apenas sobre o tempo total de execução dos algoritmos, que
+ pode aumentar um pouco; no entanto, relativamente um ao outro temos uma
+ ordem de comparação similar.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang brazilian
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+refname{REFERÊNCIAS} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "python"
+
+\end_inset
+
+Python; [internet] Disponível em: <https://www.python.org/> [acesso em 12
+ de setembro de 2015]
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "hallpaz-github"
+
+\end_inset
+
+hallpaz Github; [internet] Disponível em <https://github.com/hallpaz/Algorithms-C
+ourse-IMPA-2015/tree/master/assignments/sorting> [acesso em 22 de setembro
+ de 2015]
+\end_layout
+
+\end_body
+\end_document
