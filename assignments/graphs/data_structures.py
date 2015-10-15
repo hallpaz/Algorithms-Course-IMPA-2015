@@ -1,49 +1,92 @@
+from enum import Enum
 
 #A min priority-queue
-class Priority_Queue():
+class Min_Priority_Queue():
     def __init__(self, array = []):
         self.storage = array
-        self.size = len(self.storage)
-        build_heap(array)
+        self.build_heap(self.storage)
 
+    def min_heapify(self, index:int):
+        """Makes the ith element of a list to respect the min heap property"""
 
-    def max_heapify(array:list, index:int, heap_size = None):
-        """Makes the ith element of a list to respect the max heap property"""
-        if(heap_size is None):
-            heap_size = len(array)
-
-        max_index = index
+        min_index = index
         left = 2*index+1
-        if((left < heap_size) and (array[left] > array[max_index])):
-            max_index = left
+        if((left < self.size()) and (self.storage[left] <= self.storage[min_index])):
+            min_index = left
         right = 2*index+2
-        if((right < heap_size) and (array[right] > array[max_index])):
-            max_index = right
-        if(max_index != index):
-            aux_bucket = array[index]
-            array[index] = array[max_index]
-            array[max_index] = aux_bucket
+        if((right < self.size()) and (self.storage[right] <= self.storage[min_index])):
+            min_index = right
+        if(min_index != index):
+            aux_bucket = self.storage[index]
+            self.storage[index] = self.storage[min_index]
+            self.storage[min_index] = aux_bucket
 
-            max_heapify(array, max_index, heap_size)
+            self.min_heapify(min_index)
         return
 
-    def validate_heap(array:list, heap_size=-1)->str:
-        if(heap_size is None):
-            heap_size = len(array)
+    def decrease_key(self, index, key):
+        pass
+    def add(element):
+        pass
+
+    def validate_heap(self)->str:
 
         for i in range(heap_size//2):
             left = 2*i+1
             right = 2*i+2
-            if(left < heap_size and array[i] < array[2*i+1]):
-                print("HEAP PROPERTY VIOLATION", heap_size, array)
+            if(left < self.size() and self.storage[i] > self.storage[2*i+1]):
+                print("HEAP PROPERTY VIOLATION", self.size(), self.storage)
                 break
-            if(right < heap_size and array[i] < array[2*i+2]):
-                print("HEAP PROPERTY VIOLATION", heap_size, array)
+            if(right < self.size() and self.storage[i] > self.storage[2*i+2]):
+                print("HEAP PROPERTY VIOLATION", self.size(), self.storage)
                 break
         return "HEAP IS OK"
 
     def build_heap(self, array:list):
-        """Builds a heap of maximum from a list"""
+        """Builds a heap of minimum from a list"""
 
         for i in range(len(array)//2, -1, -1):
-            max_heapify(array, i)
+            self.min_heapify(i)
+
+    def size(self):
+        return len(self.storage)
+    def empty(self):
+        return bool(self.storage)
+
+class Color(Enum):
+    white = 1
+    gray = 2
+    black = 3
+
+class Node:
+    #def __init__(self, identifier = None, adj = [], costs = []):
+    def __init__(self, identifier = None):
+        self.neighbors = []
+        self.costs = []
+        self.id = identifier
+        self.parent = None
+        self.color = Color.white
+        self.weight = float("inf")
+
+    def __str__(self):
+        representation = "id " + str(self.id) + "\n"
+        for i, j in zip(self.neighbors, self.costs):
+            representation += "(" + str(i) + ", " + str(j) + ") "
+        return representation
+
+    def add(self, neighbor: int, cost = 1):
+        self.neighbors.append(neighbor)
+        self.costs.append(cost)
+
+    def __lt__(self, other):
+         return (self.weight < other.weight)
+    def __le__(self, other):
+         return (self.weight <= other.weight)
+    def __eq__(self, other):
+         return (self.weight == other.weight)
+    def __ne__(self, other):
+         return (self.weight != other.weight)
+    def __gt__(self, other):
+         return (self.weight > other.weight)
+    def __ge__(self, other):
+         return (self.weight >= other.weight)
