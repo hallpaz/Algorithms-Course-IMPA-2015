@@ -1,6 +1,43 @@
 from enum import Enum
 
-#A min priority-queue
+class Color(Enum):
+    white = 1
+    gray = 2
+    black = 3
+
+class Node:
+    def __init__(self, identifier = None):
+        self.neighbors = []
+        self.costs = []
+        self.id = identifier
+        self.parent = None
+        self.color = Color.white
+        self.weight = float("inf")
+
+    def __str__(self):
+        representation = "id " + str(self.id) + "\n"
+        for i, j in zip(self.neighbors, self.costs):
+            representation += "(" + str(i) + ", " + str(j) + ") "
+        return representation
+
+    def add(self, neighbor: int, cost = 1):
+        self.neighbors.append(neighbor)
+        self.costs.append(cost)
+
+    def __lt__(self, other):
+         return (self.weight < other.weight)
+    def __le__(self, other):
+         return (self.weight <= other.weight)
+    def __eq__(self, other):
+         return (self.weight == other.weight)
+    def __ne__(self, other):
+         return (self.weight != other.weight)
+    def __gt__(self, other):
+         return (self.weight > other.weight)
+    def __ge__(self, other):
+         return (self.weight >= other.weight)
+
+#A min priority-queue (not necessary)
 class Min_Priority_Queue():
     def __init__(self, array = []):
         self.storage = array
@@ -52,41 +89,3 @@ class Min_Priority_Queue():
         return len(self.storage)
     def empty(self):
         return bool(self.storage)
-
-class Color(Enum):
-    white = 1
-    gray = 2
-    black = 3
-
-class Node:
-    #def __init__(self, identifier = None, adj = [], costs = []):
-    def __init__(self, identifier = None):
-        self.neighbors = []
-        self.costs = []
-        self.id = identifier
-        self.parent = None
-        self.color = Color.white
-        self.weight = float("inf")
-
-    def __str__(self):
-        representation = "id " + str(self.id) + "\n"
-        for i, j in zip(self.neighbors, self.costs):
-            representation += "(" + str(i) + ", " + str(j) + ") "
-        return representation
-
-    def add(self, neighbor: int, cost = 1):
-        self.neighbors.append(neighbor)
-        self.costs.append(cost)
-
-    def __lt__(self, other):
-         return (self.weight < other.weight)
-    def __le__(self, other):
-         return (self.weight <= other.weight)
-    def __eq__(self, other):
-         return (self.weight == other.weight)
-    def __ne__(self, other):
-         return (self.weight != other.weight)
-    def __gt__(self, other):
-         return (self.weight > other.weight)
-    def __ge__(self, other):
-         return (self.weight >= other.weight)

@@ -1,31 +1,36 @@
-data_folder = "data/"
-images_folder = "images/"
-
 from collections import deque
-#from data_structures import Min_Priority_Queue as priority_queue
 from copy import deepcopy
 import heapq
 from data_structures import Node, Color
+from PIL import Image
 
+data_folder = "data/"
+images_folder = "images/"
 
-def BFS(graph:list, visit_function):
+def write_postscript_node_to_file(node, file):
+    for neighbor in node.neighbors:
+        line = "P{0} P{1} edge\n".format(node.id, neighbor)
+        file.write(line)
+
+def BFS(graph:list, source, visit_function, func_args = None):
     """Runs a BFS and compute graph size during the process"""
-
+    if source is None:
+        source = 1
     for node in graph:
         node.color = Color.white
     queue = deque()
-    for node in graph:
-        if(node.color == Color.white):
-            queue.append(node)
-        while(not queue.empty()):
-            currentNode = queue.popleft()
-            currentNode.color = Color.gray
-            visit_function(currentNode)
-            for i in currentNode.neighbors:
-                if graph[i].color == Color.white:
-                    queue.append(graph[i])
-            currentNode.color = Color.black
-    return size
+    queue.append(graph[source-1])
+    graph[source-1].color = Color.gray
+    while(queue):
+        currentNode = queue.popleft()
+        visit_function(currentNode, func_args)
+        for i in range(len(currentNode.neighbors)):
+            neighbor = graph[currentNode.neighbors[i]-1]
+            if graph[neighbor.id-1].color == Color.white:
+                queue.append(graph[neighbor.id-1])
+                graph[neighbor.id-1].color = Color.gray
+        currentNode.color = Color.black
+    return
 
 def graph_size(graph:list, source = None)->float:
     """Runs a DFS and compute graph size during the process"""
@@ -40,18 +45,14 @@ def graph_size(graph:list, source = None)->float:
     graph[source-1].color = Color.gray
     while(stack):
         currentNode = stack.pop()
-        #print(currentNode.id, currentNode.parent)
         for i in range(len(currentNode.neighbors)):
             neighbor = graph[currentNode.neighbors[i]-1]
-            #print(currentNode.id, neighbor.id)
             size += currentNode.costs[i]
             if graph[neighbor.id-1].color == Color.white:
                 stack.append(graph[neighbor.id-1])
                 graph[neighbor.id-1].color = Color.gray
-                #print(neighbor.id, currentNode.costs[i], size)
         currentNode.color = Color.black
     return size/2
-
 
 
 def mst_reconstruction(graph:list)->list:
@@ -116,21 +117,15 @@ def minimum_spanning_tree(graph:list)->list:
     on_queue = [True for i in range(len(graph))]
     while(queue):
         node = heapq.heappop(queue)
-        #print(node.id)
         if on_queue[node.id-1]:
-            #if node.color == Color.white #
             for i in range(len(node.neighbors)):
                 neighbor = graph[node.neighbors[i]-1]
-                #print("neigh", neighbor.id)
-                #neighbor = mst[node.neighbors[i]-1]
                 if(on_queue[neighbor.id-1] and (node.costs[i] < neighbor.weight)):
-                    #print("neigh", neighbor.id)
                     neighbor.parent = node.id
                     neighbor.weight = node.costs[i]
 
                 heapq.heapify(queue)
             on_queue[node.id-1] = False
-            #print(node.id, node.parent, node.weight)
             mst[node.id-1] = node
             last = node
 
@@ -171,38 +166,36 @@ def minimum_path(graph:list, source:int, dst = None)->list:
         root, min_tree = minpath_reconstruction(min_tree, dst)
     else:
         root, min_tree = minpath_reconstruction(min_tree)
-    # for node in min_tree:
-    #     edge_cost = 0
-    #     if(node.parent is not None):
-    #         edge_cost = node.weight - min_tree[node.parent-1].weight
-    #     print(node.id, node.parent, edge_cost, node.weight)
 
     return root, min_tree
 
 def graph_initialization(filename:str, graph_size:int)->list:
     graph = [Node(i) for i in range(1, graph_size+1)]
-    #for node in graph:
-    #    print(node)
+
     with open(data_folder + filename) as american_file:
         file_lines = american_file.readlines()
         for line in file_lines:
-            #print('UMA LINHA')
             parameters = line.split()
             source = int(parameters[0])
             dst = int(parameters[1])
             cost = float(parameters[2])
-            #print(source, dst, cost)
-            #print(graph[source-1])
             graph[source-1].add(dst, cost) #add undirected
             graph[dst-1].add(source, cost)
-            #print(graph[source-1])
     return graph
 
 if __name__ == "__main__":
-    graph = graph_initialization("map.txt", 128)
+    graph = graph_initialization("BR.txt", 5665)
+
     print("Total graph size", graph_size(graph))
     root, mst = minimum_spanning_tree(graph)
+    with open(data_folder + "mstBR.txt", "a+") as myfile:
+         BFS(mst, root, write_postscript_node_to_file, myfile)
     print("mst size", graph_size(mst, root) )
-    root, path = minimum_path(graph, 93, 112)
+    root, path = minimum_path(graph, 1, 2646)
+    with open(data_folder + "path1_2646.txt", "a+") as myfile:
+         BFS(path, root, write_postscript_node_to_file, myfile)
     print("min tree size", graph_size(path, root))
-    print(root)
+
+    root, path = minimum_path(graph, 2646)
+    with open(data_folder + "total2646.txt", "a+") as myfile:
+         BFS(path, root, write_postscript_node_to_file, myfile)
