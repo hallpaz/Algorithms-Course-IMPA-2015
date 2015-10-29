@@ -1,4 +1,4 @@
-import Point2D
+from Point2D import Point2D
 
 
 def CCW_test(p1:Point2D, p2:Point2D, origin = None)->float:
@@ -13,9 +13,22 @@ def CCW_test(p1:Point2D, p2:Point2D, origin = None)->float:
 
 def turns_left(p1:Point2D, p2:Point2D, origin:Point2D)->bool:
     """Checks wether an angle p1-origin-p2 turns left or not"""
-    if CCW_test(p1, p2, origin) < 0:
+    if CCW_test(p1, p2, origin) > 0:
         return True
     return False
+
+
+def rel_cotan(p1:Point2D, p2:Point2D)->float:
+    if(p1 == p2):
+        return -float("inf")
+    a = p1.y - p2.y
+    b = p1.x - p2.x
+    if(a < 1e-4):
+        if(b < 0):
+            return -float("inf")
+        elif(b > 0):
+            return float("inf")
+    return -b/a
 
 def Jarvis():
     pass
@@ -25,11 +38,15 @@ def Graham(points:list):
     p0 = min(points, key=lambda p: (p.y, p.x))
 
     #sort other points in counterclockwise order around p0
-    points = sorted(points, key=lambda p: CCW_test(Point(), p, p0)) #check if I could change the origin
+    points = sorted(points, key=lambda p: rel_cotan(p,p0) ) #check if I could change the origin
     #push(p0, p1, p2)
-    stack = [p0, p1, p2]
+    offset = 1
+    for p in points:
+        print(p, rel_cotan( p, p0) )
+    print('-----------------------------------------')
+    stack = [p0, points[1], points[2]]
 
-    for p in poits[3:]:
+    for p in points[3:]:
         while not turns_left(stack[-2], p, stack[-1]):
             stack.pop()
         stack.append(p)
