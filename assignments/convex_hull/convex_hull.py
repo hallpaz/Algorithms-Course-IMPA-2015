@@ -1,5 +1,6 @@
 from Point2D import Point2D
 
+DEBUG = False
 
 def CCW_test(p1:Point2D, p2:Point2D, origin = None)->float:
     """ Checks if p2 is in counterclockwise position relative to p1"""
@@ -30,27 +31,74 @@ def rel_cotan(p1:Point2D, p2:Point2D)->float:
             return float("inf")
     return -b/a
 
-def Jarvis():
-    pass
+def euclidean_distance2(p1:Point2D, p2:Point2D)->float:
+    return (p1.x-p2.x)**2 + (p1.y-p2.y)**2
 
-def Graham(points:list):
+def find_next_hull_point(points:list, p:Point2D)->Point2D:
+    """ Jarvis helper procedure to find the next point from the hull given the last point found """
+    next_point = p
+    current_fake_angle = float('inf')
+    for point in points:
+        fake_angle = rel_cotan(point, p)
+        if (fake_angle < current_fake_angle) and (euclidean_distance2(p, point) > 0):
+            next_point = point
+            current_fake_angle = fake_angle
+            #print(next_point)
+
+    return next_point
+
+def Jarvis(points:list)->list:
+    #p0 is a point that we definetily know it belongs to the hull
+    next_point = min(points, key=lambda p: (p.y, -p.x))
+    hull = [next_point]
+
+    while True:
+        #print(next_point)
+        next_point = find_next_hull_point(points, hull[-1])
+        if(next_point != hull[0]):
+            hull.append(next_point)
+        else:
+            break
+    return hull
+
+def Graham(points:list)->list:
     #p0 <- point of min y
     p0 = min(points, key=lambda p: (p.y, p.x))
 
     #sort other points in counterclockwise order around p0
-    points = sorted(points, key=lambda p: rel_cotan(p,p0) ) #check if I could change the origin
+    points = sorted(points, key=lambda p: (rel_cotan(p,p0), p.y) )
     #push(p0, p1, p2)
     offset = 1
-    for p in points:
-        print(p, rel_cotan( p, p0) )
-    print('-----------------------------------------')
-    stack = [p0, points[1], points[2]]
+    if(DEBUG):
+        for p in points:
+            print(p, rel_cotan( p, p0) )
+        print('-----------------------------------------') #for debug purposes
+    hull_stack = [p0, points[1], points[2]]
 
     for p in points[3:]:
-        while not turns_left(stack[-2], p, stack[-1]):
-            stack.pop()
-        stack.append(p)
-    return stack
+        while not turns_left(hull_stack[-2], p, hull_stack[-1]):
+            hull_stack.pop()
+        hull_stack.append(p)
+    return hull_stack
+
+def Graham_up_down(points:list)->list:
+    points = sorted(points, key=lambda p: (p.x, p.y))
+
+    lower_hull = []
+    for p in points:
+        while (len(lower_hull) > 1) and (not turns_left(lower_hull[-2], p, lower_hull[-1])):
+            lower_hull.pop()
+        lower_hull.append(p)
+
+    upper_hull = []
+    for p in reversed(points):
+        while (len(upper_hull) > 1) and (not turns_left(upper_hull[-2], p, upper_hull[-1])) :
+            upper_hull.pop()
+        upper_hull.append(p)
+
+    #merge both lists
+    return (lower_hull[:-1] + upper_hull[:-1])
+
 
 if __name__ == "__main__":
     print("Convex Hull file called as main")
@@ -59,6 +107,6 @@ if __name__ == "__main__":
 
     filename = data_folder + "teste.txt"
     points = Point2D.read_from_file(filename)
-    convex_hull = Graham(points)
+    convex_hull = Graham_up_down(points)
     for point in convex_hull:
         print(point)

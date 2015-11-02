@@ -32,10 +32,16 @@ class Point2D:
         return representation
 
     def __add__(self, other):
+        """ Addition of 2 points  """
         return Point2D(self.x + other.x, self.y + other.y)
 
     def __sub__(self, other):
+        """ Subtraction of 2 points """
         return Point2D(self.x - other.x, self.y - other.y)
+
+    def __rmul__(self, other):
+        """ Multiplication by scalar """
+        return Point2D(other*self.x, other*self.y)
 
     # def __lt__(self, other):
     #     if(Point2D.CCW_test(other, self) < 0):
