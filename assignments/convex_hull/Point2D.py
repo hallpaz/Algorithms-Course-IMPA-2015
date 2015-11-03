@@ -4,12 +4,14 @@ class Point2D:
 
     def read_from_file(filename:str)->list:
         points = []
+        index = 0
         with open(filename) as myfile:
             file_lines = myfile.readlines()
             for line in file_lines:
                 content = line.split()
                 if len(content) == 2:
-                    points.append(Point2D(float(content[0]), float(content[1]) ))
+                    index += 1
+                    points.append(Point2D(float(content[0]), float(content[1]), "P" + str(index) ))
                 elif len(content) == 3:
                     points.append(Point2D(float(content[1]), float(content[2]), content[0]))
                 else:

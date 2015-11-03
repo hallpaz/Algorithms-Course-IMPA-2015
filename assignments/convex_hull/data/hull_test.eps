@@ -1,0 +1,105 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%BoundingBox: 60 60 510 480
+%%Title: voronoi diagram
+%%Pages: 1
+%%EndComments
+%%EndProlog
+%%BeginSetup
+/p { 0.3 0 360 arc fill } bind def
+50 50 translate
+500 500 scale
+%%EndSetup
+
+% region is  0 20 0 20
+1 20 div 1 20 div scale
+0 0 translate
+
+% points
+/A { 3 9 } def
+/B { 11 1 } def
+/C { 6 8 } def
+/D { 4 3 } def
+/E { 5 15 } def
+/F { 8 11 } def
+/G { 1 6 } def
+/H { 7 4 } def
+/I { 9 7 } def
+/J { 14 5 } def
+/K { 10 13 } def
+/L { 17 14 } def
+/M { 15 2 } def
+/N { 13 16  } def
+/O { 3 12 } def
+/P { 12 10 } def
+/Q { 16 8 } def
+
+% hull
+0.9 setgray
+0.1 setlinewidth
+B moveto
+M lineto
+L lineto
+N lineto
+E lineto
+O lineto
+G lineto
+D lineto
+closepath fill
+0 setgray
+
+% hull
+0.1 setlinewidth
+B moveto
+M lineto
+L lineto
+N lineto
+E lineto
+O lineto
+G lineto
+D lineto
+closepath stroke
+
+% points
+A p
+B p
+C p
+D p
+E p
+F p
+G p
+H p
+I p
+J p
+K p
+L p
+M p
+N p
+O p
+P p
+Q p
+
+/t { dup cvx exec moveto 0.45 0.25 rmoveto str cvs show} bind def
+/str 20 string def
+
+% labels
+/Helvetica findfont 1 scalefont setfont
+/A t
+/B t
+/C t
+/D t
+/E t
+/F t
+/G t
+/H t
+/I t
+/J t
+/K t
+/L t
+/M t
+/N t
+/O t
+/P t
+/Q t
+
+showpage
+%%EOF

@@ -1,0 +1,34 @@
+0.9 setgray
+0.1 setlinewidth
+P17 moveto
+P4 lineto
+P107 lineto
+P7 lineto
+P125 lineto
+P34 lineto
+P102 lineto
+P86 lineto
+P91 lineto
+P99 lineto
+P88 lineto
+P93 lineto
+P32 lineto
+closepath fill
+0 setgray
+
+0.1 setlinewidth
+P17 moveto
+P4 lineto
+P107 lineto
+P7 lineto
+P125 lineto
+P34 lineto
+P102 lineto
+P86 lineto
+P91 lineto
+P99 lineto
+P88 lineto
+P93 lineto
+P32 lineto
+closepath stroke
+

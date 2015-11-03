@@ -1,4 +1,5 @@
 from Point2D import Point2D
+from postscript_writer import *
 
 DEBUG = False
 
@@ -18,7 +19,6 @@ def turns_left(p1:Point2D, p2:Point2D, origin:Point2D)->bool:
         return True
     return False
 
-
 def rel_cotan(p1:Point2D, p2:Point2D)->float:
     if(p1 == p2):
         return -float("inf")
@@ -37,13 +37,10 @@ def euclidean_distance2(p1:Point2D, p2:Point2D)->float:
 def find_next_hull_point(points:list, p:Point2D)->Point2D:
     """ Jarvis helper procedure to find the next point from the hull given the last point found """
     next_point = p
-    current_fake_angle = float('inf')
     for point in points:
-        fake_angle = rel_cotan(point, p)
-        if (fake_angle < current_fake_angle) and (euclidean_distance2(p, point) > 0):
+        fake_angle = CCW_test(p, point, next_point)
+        if fake_angle < 0 or (fake_angle == 0 and (euclidean_distance2(p, point) > euclidean_distance2(p, next_point))):
             next_point = point
-            current_fake_angle = fake_angle
-            #print(next_point)
 
     return next_point
 
@@ -53,7 +50,6 @@ def Jarvis(points:list)->list:
     hull = [next_point]
 
     while True:
-        #print(next_point)
         next_point = find_next_hull_point(points, hull[-1])
         if(next_point != hull[0]):
             hull.append(next_point)
@@ -73,10 +69,10 @@ def Graham(points:list)->list:
         for p in points:
             print(p, rel_cotan( p, p0) )
         print('-----------------------------------------') #for debug purposes
-    hull_stack = [p0, points[1], points[2]]
 
-    for p in points[3:]:
-        while not turns_left(hull_stack[-2], p, hull_stack[-1]):
+    hull_stack = []
+    for p in points:
+        while (len(hull_stack) > 1) and (not turns_left(hull_stack[-2], p, hull_stack[-1])):
             hull_stack.pop()
         hull_stack.append(p)
     return hull_stack
@@ -99,14 +95,15 @@ def Graham_up_down(points:list)->list:
     #merge both lists
     return (lower_hull[:-1] + upper_hull[:-1])
 
-
 if __name__ == "__main__":
     print("Convex Hull file called as main")
 
     data_folder = "data/"
 
-    filename = data_folder + "teste.txt"
+    #filename = data_folder + "teste.txt"
+    filename = data_folder + "america.txt"
     points = Point2D.read_from_file(filename)
-    convex_hull = Graham_up_down(points)
+    convex_hull = Jarvis(points)
     for point in convex_hull:
         print(point)
+    write_hull(convex_hull, data_folder + "hull_america.txt")
