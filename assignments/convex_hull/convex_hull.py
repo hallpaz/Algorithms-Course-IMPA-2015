@@ -99,6 +99,26 @@ def Graham_up_down(points:list)->list:
     #merge both lists
     return (lower_hull[:-1] + upper_hull[:-1])
 
+def eliminate_interior_points(points:list)->list:
+    left = right = bottom = up = None
+    for p in points:
+        if left is None or p.x < left.x:
+            left = p
+        if right is None or p.x > right.x:
+            right = p
+        if bottom is None or p.y < bottom.y:
+            bottom = p
+        if up is None or p.y > up.y:
+            up = p
+
+    exterior_points = []
+    for p in points:
+        if (not turns_left(left, p, bottom)) or (not turns_left(bottom, p, right)) or (not turns_left(right, p, up)) or (not turns_left(up, p, left)):
+            exterior_points.append(p)
+
+    return exterior_points
+
+
 
 if __name__ == "__main__":
     print("Convex Hull file called as main")
@@ -107,6 +127,10 @@ if __name__ == "__main__":
 
     filename = data_folder + "teste.txt"
     points = Point2D.read_from_file(filename)
+    points = eliminate_interior_points(points)
+    for p in points:
+        print(p)
+    print('*****************************************')
     convex_hull = Graham_up_down(points)
     for point in convex_hull:
         print(point)
