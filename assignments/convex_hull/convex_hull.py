@@ -63,13 +63,6 @@ def Graham(points:list)->list:
 
     #sort other points in counterclockwise order around p0
     points = sorted(points, key=lambda p: (rel_cotan(p,p0), p.y) )
-    #push(p0, p1, p2)
-    offset = 1
-    if(DEBUG):
-        for p in points:
-            print(p, rel_cotan( p, p0) )
-        print('-----------------------------------------') #for debug purposes
-
     hull_stack = []
     for p in points:
         while (len(hull_stack) > 1) and (not turns_left(hull_stack[-2], p, hull_stack[-1])):
@@ -95,15 +88,41 @@ def Graham_up_down(points:list)->list:
     #merge both lists
     return (lower_hull[:-1] + upper_hull[:-1])
 
+def eliminate_interior_points(points:list)->list:
+    left = right = bottom = top = None
+
+    for p in points:
+        if left is None or p.x < left.x:
+            left = p
+        if right is None or p.x > right.x:
+            right = p
+        if bottom is None or p.y < bottom.y:
+            bottom = p
+        if top is None or p.y > top.y:
+            top = p
+
+    exterior_points = []
+    for p in points:
+        if (not turns_left(left, p, bottom)) or (not turns_left(bottom, p, right)) or (not turns_left(right, p, top)) or (not turns_left(top, p, left)):
+            exterior_points.append(p)
+    return exterior_points
+
 if __name__ == "__main__":
     print("Convex Hull file called as main")
 
     data_folder = "data/"
 
-    #filename = data_folder + "teste.txt"
-    filename = data_folder + "america.txt"
-    points = Point2D.read_from_file(filename)
+    filename = data_folder + "teste.txt"
+    points = eliminate_interior_points(Point2D.read_from_file(filename))
     convex_hull = Jarvis(points)
-    for point in convex_hull:
-        print(point)
     write_hull(convex_hull, data_folder + "hull_america.txt")
+
+    filename = data_folder + "america.txt"
+    points = eliminate_interior_points(Point2D.read_from_file(filename))
+    convex_hull = Jarvis(points)
+    write_hull(convex_hull, data_folder + "hull_america.txt")
+
+    filename = data_folder + "brasil.txt"
+    points = eliminate_interior_points(Point2D.read_from_file(filename))
+    convex_hull = Jarvis(points)
+    write_hull(convex_hull, data_folder + "hull_brasil.txt")
