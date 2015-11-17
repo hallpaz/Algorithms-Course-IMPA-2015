@@ -1,0 +1,32 @@
+0.9 setgray
+0.1 setlinewidth
+P8 moveto
+P3105 lineto
+P3137 lineto
+P3295 lineto
+P511 lineto
+P4033 lineto
+P665 lineto
+P657 lineto
+P522 lineto
+P476 lineto
+P474 lineto
+P1 lineto
+closepath fill
+0 setgray
+
+0.1 setlinewidth
+P8 moveto
+P3105 lineto
+P3137 lineto
+P3295 lineto
+P511 lineto
+P4033 lineto
+P665 lineto
+P657 lineto
+P522 lineto
+P476 lineto
+P474 lineto
+P1 lineto
+closepath stroke
+

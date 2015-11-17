@@ -1,0 +1,321 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%BoundingBox: 40 40 560 300
+%%Title: voronoi diagram
+%%Creator: voronoi-fortune
+%%CreationDate: Wed May 14 18:11:37 EST 1997
+%%Pages: 1
+%%EndComments
+%%EndProlog
+%%BeginSetup
+/max { 2 copy lt { exch } if pop } bind def
+/vertex { 20 0 360 arc fill } bind def
+/edge { moveto lineto stroke } bind def
+/region {
+/ymax exch def
+/ymin exch def
+/xmax exch def
+/xmin exch def
+/dx xmax xmin sub def
+/dy ymax ymin sub def
+1 dx dy max div dup scale
+%1 dx div 1 dy div scale
+xmin neg ymin neg translate
+} bind def
+
+0 setlinewidth
+50 50 translate
+500 500 scale
+%%EndSetup
+
+%%Page: 1 1
+
+-12312 -7180 2672 5042 region
+
+% vertex coordinates
+/P1 { -8065 4110 } def
+/P2 { -9739 4288 } def
+/P3 { -12051 4660 } def
+/P4 { -7180 4227 } def
+/P5 { -8977 4363 } def
+/P6 { -8025 3610 } def
+/P7 { -9715 4988 } def
+/P8 { -7816 3919 } def
+/P9 { -7792 3424 } def
+/P10 { -7555 3975 } def
+/P11 { -10362 4815 } def
+/P12 { -7700 4125 } def
+/P13 { -8228 3768 } def
+/P14 { -9849 3390 } def
+/P15 { -9734 3769 } def
+/P16 { -8072 4007 } def
+/P17 { -8005 2672 } def
+/P18 { -12032 4742 } def
+/P19 { -12239 4142 } def
+/P20 { -8235 3122 } def
+/P21 { -8964 4496 } def
+/P22 { -8783 4236 } def
+/P23 { -9711 4490 } def
+/P24 { -7592 4398 } def
+/P25 { -9234 4250 } def
+/P26 { -7305 4155 } def
+/P27 { -7703 3889 } def
+/P28 { -7914 4185 } def
+/P29 { -11833 4607 } def
+/P30 { -9714 3155 } def
+/P31 { -8753 3868 } def
+/P32 { -9701 2881 } def
+/P33 { -9088 3235 } def
+/P34 { -12312 4927 } def
+/P35 { -9801 4692 } def
+/P36 { -8328 3083 } def
+/P37 { -7523 4311 } def
+/P38 { -7973 3990 } def
+/P39 { -9530 3235 } def
+/P40 { -11447 4256 } def
+/P41 { -8757 3321 } def
+/P42 { -8871 3426 } def
+/P43 { -9591 3616 } def
+/P44 { -11097 3222 } def
+/P45 { -10451 3717 } def
+/P46 { -7477 4023 } def
+/P47 { -8563 4476 } def
+/P48 { -7938 4365 } def
+/P49 { -9567 3905 } def
+/P50 { -8354 4165 } def
+/P51 { -9405 3343 } def
+/P52 { -8741 3947 } def
+/P53 { -8245 2795 } def
+/P54 { -8428 3045 } def
+/P55 { -12243 4724 } def
+/P56 { -7615 4305 } def
+/P57 { -8234 3260 } def
+/P58 { -8035 3392 } def
+/P59 { -7519 4099 } def
+/P60 { -12129 3796 } def
+/P61 { -8957 4452 } def
+/P62 { -8062 4036 } def
+/P63 { -10322 4062 } def
+/P64 { -7907 3815 } def
+/P65 { -8381 3992 } def
+/P66 { -9329 3722 } def
+/P67 { -7259 4210 } def
+/P68 { -8965 3980 } def
+/P69 { -11741 4767 } def
+/P70 { -8625 4168 } def
+/P71 { -9673 4354 } def
+/P72 { -9639 4249 } def
+/P73 { -9375 3251 } def
+/P74 { -9661 3364 } def
+/P75 { -10696 4480 } def
+/P76 { -9668 3523 } def
+/P77 { -8702 3242 } def
+/P78 { -9323 3871 } def
+/P79 { -12233 4760 } def
+/P80 { -7567 4141 } def
+/P81 { -10366 4187 } def
+/P82 { -7395 4282 } def
+/P83 { -8109 3208 } def
+/P84 { -8435 4649 } def
+/P85 { -8253 2734 } def
+/P86 { -12272 3844 } def
+/P87 { -10595 3568 } def
+/P88 { -11970 3442 } def
+/P89 { -11787 3376 } def
+/P90 { -12188 3734 } def
+/P91 { -12242 3778 } def
+/P92 { -8271 4145 } def
+/P93 { -11715 3271 } def
+/P94 { -11731 3411 } def
+/P95 { -9850 2942 } def
+/P96 { -10044 3146 } def
+/P97 { -11188 4076 } def
+/P98 { -7560 3837 } def
+/P99 { -12165 3667 } def
+/P100 { -9761 3884 } def
+/P101 { -10600 3853 } def
+/P102 { -12303 4494 } def
+/P103 { -9310 4495 } def
+/P104 { -9019 3862 } def
+/P105 { -9484 3977 } def
+/P106 { -8648 4210 } def
+/P107 { -7202 4442 } def
+/P108 { -9417 4557 } def
+/P109 { -8132 2989 } def
+/P110 { -8394 4343 } def
+/P111 { -12149 3859 } def
+/P112 { -7297 4361 } def
+/P113 { -10453 3340 } def
+/P114 { -7780 3594 } def
+/P115 { -10923 4159 } def
+/P116 { -8910 4227 } def
+/P117 { -7761 4316 } def
+/P118 { -9246 4402 } def
+/P119 { -7994 3727 } def
+/P120 { -7745 3754 } def
+/P121 { -8489 3983 } def
+/P122 { -11209 3877 } def
+/P123 { -8942 4564 } def
+/P124 { -11981 3952 } def
+/P125 { -10465 5042 } def
+/P126 { -12224 4018 } def
+/P127 { -7593 4033 } def
+/P128 { -8124 4116 } def
+
+
+1 0 0 setrgbcolor
+0.2 setlinewidth
+P17 moveto
+P4 lineto
+P107 lineto
+P7 lineto
+P125 lineto
+P34 lineto
+P102 lineto
+P86 lineto
+P91 lineto
+P99 lineto
+P88 lineto
+P93 lineto
+P32 lineto
+closepath stroke
+
+
+% edges
+
+1 0 0 setrgbcolor
+% subgraph
+% Pa Pb edge
+
+% vertices
+0 0 0 setrgbcolor
+P1 vertex
+P2 vertex
+P3 vertex
+P4 vertex
+P5 vertex
+P6 vertex
+P7 vertex
+P8 vertex
+P9 vertex
+P10 vertex
+P11 vertex
+P12 vertex
+P13 vertex
+P14 vertex
+P15 vertex
+P16 vertex
+P17 vertex
+P18 vertex
+P19 vertex
+P20 vertex
+P21 vertex
+P22 vertex
+P23 vertex
+P24 vertex
+P25 vertex
+P26 vertex
+P27 vertex
+P28 vertex
+P29 vertex
+P30 vertex
+P31 vertex
+P32 vertex
+P33 vertex
+P34 vertex
+P35 vertex
+P36 vertex
+P37 vertex
+P38 vertex
+P39 vertex
+P40 vertex
+P41 vertex
+P42 vertex
+P43 vertex
+P44 vertex
+P45 vertex
+P46 vertex
+P47 vertex
+P48 vertex
+P49 vertex
+P50 vertex
+P51 vertex
+P52 vertex
+P53 vertex
+P54 vertex
+P55 vertex
+P56 vertex
+P57 vertex
+P58 vertex
+P59 vertex
+P60 vertex
+P61 vertex
+P62 vertex
+P63 vertex
+P64 vertex
+P65 vertex
+P66 vertex
+P67 vertex
+P68 vertex
+P69 vertex
+P70 vertex
+P71 vertex
+P72 vertex
+P73 vertex
+P74 vertex
+P75 vertex
+P76 vertex
+P77 vertex
+P78 vertex
+P79 vertex
+P80 vertex
+P81 vertex
+P82 vertex
+P83 vertex
+P84 vertex
+P85 vertex
+P86 vertex
+P87 vertex
+P88 vertex
+P89 vertex
+P90 vertex
+P91 vertex
+P92 vertex
+P93 vertex
+P94 vertex
+P95 vertex
+P96 vertex
+P97 vertex
+P98 vertex
+P99 vertex
+P100 vertex
+P101 vertex
+P102 vertex
+P103 vertex
+P104 vertex
+P105 vertex
+P106 vertex
+P107 vertex
+P108 vertex
+P109 vertex
+P110 vertex
+P111 vertex
+P112 vertex
+P113 vertex
+P114 vertex
+P115 vertex
+P116 vertex
+P117 vertex
+P118 vertex
+P119 vertex
+P120 vertex
+P121 vertex
+P122 vertex
+P123 vertex
+P124 vertex
+P125 vertex
+P126 vertex
+P127 vertex
+P128 vertex
+
+showpage
+%%EOF
