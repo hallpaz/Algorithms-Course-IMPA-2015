@@ -1,4 +1,9 @@
+from enum import Enum
 
+class Direction(Enum):
+    """docstring for Direction"""
+    Left = 0
+    Right = 1
 
 class Point2D:
 
@@ -59,3 +64,19 @@ class Point2D:
     #      return (self.comparator > other.comparator)
     # def __ge__(self, other):
     #      return (self.comparator >= other.comparator)
+
+
+def CCW_test(p1:Point2D, p2:Point2D, origin = None)->float:
+    """ Checks if p2 is in counterclockwise position relative to p1
+    If p2 is CCW p1, returns a positive value. If p2 is CW p1, returns a negative value"""
+    if origin is None:
+        origin = Point2D()
+    translated_p1 = p1 - origin
+    translated_p2 = p2 - origin
+    cross_value = translated_p2.x*translated_p1.y - translated_p1.x*translated_p2.y
+
+    return cross_value
+
+def direction(p1:Point2D, p2:Point2D, origin = None):
+    if CCW(p1, p2, origin) > 0:
+        return LEFT
