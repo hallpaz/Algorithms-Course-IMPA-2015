@@ -1,4 +1,4 @@
-from Point2D import Point2D
+from Point2D import Point2D, CCW_test
 
 
 class Segment():
