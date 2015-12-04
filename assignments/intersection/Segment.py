@@ -4,10 +4,10 @@ from Point2D import Point2D, CCW_test
 class Segment():
 
     def __init__(self, pointA:Point2D, pointB:Point2D):
-        self.first = A
-        self.second = B
-        if A.name and B.name:
-            self.name = A.name + B.name
+        self.first = pointA
+        self.second = pointB
+        if pointA.name and pointB.name:
+            self.name = pointA.name + pointB.name
         else:
             self.name = None
 
@@ -19,18 +19,39 @@ class Segment():
 
         if( ((d1 > 0 and d2 < 0) or (d1 < 0 and d2 > 0)) and ((d3 > 0 and d4 < 0) or (d3 < 0 and d4 > 0))):
             return True
-        elif d1 == 0 and other.contains(p1)
+        elif d1 == 0 and other.contains(self.first):
+            return True
+        elif d2 == 0 and other.contains(self.second):
+            return True
+        elif d3 == 0 and self.contains(other.first):
+            return True
+        elif d4 == 0 and self.contains(other.second):
+            return True
+
+        return False
 
     def contains(self, point)->bool:
         if (min(self.first.x, self.second.x) <= point.x and
         point.x <= max(self.first.x, self.second.x) and
         min(self.first.y, self.second.y) <= point.y and
         point.y <= max(self.first.x, self.second.y)):
-            return true
+            return True
         return False;
 
-
+    def isBelow(self, other, x:float)->bool:
+        #TODO: do computations to check wheter they are below or not
+        return False
 
 
 if __name__ == "__main__":
     print("Module called as main")
+
+    p1 = Point2D(0, 0)
+    p2 = Point2D(1, 1)
+    p3 = Point2D(1, 0)
+    p4 = Point2D(0, 1)
+
+    segA = Segment(p1, p2)
+    segB = Segment(Point2D(0.5, 0.5), p4)
+
+    print( segA.intersects(segB) )
