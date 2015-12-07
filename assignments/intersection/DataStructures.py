@@ -1,5 +1,8 @@
 from enum import Enum
+from Segment import Segment
+from Point2D import Point2D
 import random
+
 
 class Color(Enum):
     """docstring for Color"""
@@ -54,13 +57,21 @@ class DoublyLinkedList():
             self.tail = node
 
     def find(self, value)->ListNode:
-        currentNode = head
+        currentNode = self.head
         while(currentNode is not None):
             if currentNode.data == value:
                 return currentNode
             currentNode = currentNode.next
 
         return None
+
+    def remove(self, value):
+        node = self.find(value)
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+        node.next = None
+        node.prev = None
 
     def printNodes(self):
         if self.head is None:
@@ -94,7 +105,7 @@ class OrderedDoublyLinkedList(DoublyLinkedList):
             self.head.prev = node
             self.head = node
             return
-        elif self.tail.data <= value:
+        elif self.tail.data < value:
             node.prev = self.tail
             self.tail.next = node
             self.tail = node
@@ -109,13 +120,13 @@ class OrderedDoublyLinkedList(DoublyLinkedList):
             aux.prev = node
 
     def successor(self, value):
-        node = find(value)
+        node = self.find(value)
         if node is not None:
             return node.next
         return None
 
-    def antecesor(self, arg):
-        node = find(value)
+    def antecesor(self, value):
+        node = self.find(value)
         if node is not None:
             return node.prev
         return None
@@ -166,40 +177,74 @@ class BinarySearchTree():
         self.inOrderPrint(branch.right)
 
 
-    def leftMost(node):
+    def leftMost(self, node):
         if node.left is None:
             return node
-        return leftMost(node.left)
+        return self.leftMost(node.left)
 
-    def rightMost(node):
+    def rightMost(self, node):
         if node.right is None:
             return node
-        return rightMost(node.right)
+        return self.rightMost(node.right)
 
     def find(self, value, branch):
         if self.root is None:
             return None
-        if branch.value == value:
+        if branch.data == value:
             return branch
-        if value < branch.value:
+        if value < branch.data:
             return self.find(value, branch.left)
         else:
             return self.find(value, branch.right)
 
-    def remove(self, value)->bool:
-        pass
+    def remove(self, value, branch = None):
+        if branch is None:
+            branch = self.root
+
+        parent = branch
+        fromLeft = True
+
+        while(branch.data != value):
+            if value < branch.data:
+                parent = branch
+                branch = branch.left
+                fromLeft = True
+            else:
+                parent = branch
+                branch = branch.right
+                fromLeft = False
+
+        if branch.left and branch.right:
+            node = self.leftMost(branch.right)
+            self.remove(node.data, branch.right)
+            branch.data = node.data
+        elif branch.left:
+            if fromLeft:
+                parent.left = branch.left
+            else:
+                parent.right = branch.left
+        elif branch.right:
+            if fromLeft:
+                parent.left = branch.right
+            else:
+                parent.right = branch.right
+        else:
+            if fromLeft:
+                parent.left = None
+            else:
+                parent.right = None
 
     def successor(self, value)->TreeNode:
-        node = self.find(value)
+        node = self.find(value, self.root)
         if node.right is None:
             return None
-        return leftMost(node.right)
+        return self.leftMost(node.right)
 
     def antecesor(self, value)->TreeNode:
-        node = self.find(value)
+        node = self.find(value, self.root)
         if node.left is None:
             return None
-        return rightMost(node.left)
+        return self.rightMost(node.left)
 
 class RBNode(TreeNode):
     """docstring for RBNode"""
@@ -218,13 +263,25 @@ if __name__ == '__main__':
     myList = OrderedDoublyLinkedList()
     myTree = BinarySearchTree()
 
-    for i in range(10):
-        n = random.randint(0, 100)
-        myList.insert(n)
-        myTree.insert(n)
+    # for i in range(10):
+    #     n = random.randint(0, 100)
+    #     myList.insert(n)
+    #     myTree.insert(n)
+    #
+    # myList.printNodes()
+    # print("------------------------------------")
+    # myList.printNodesReverse()
+    # print("------------------------------------")
+    # myTree.inOrderPrint(myTree.root)
 
-    myList.printNodes()
-    print("------------------------------------")
-    myList.printNodesReverse()
-    print("------------------------------------")
-    myTree.inOrderPrint(myTree.root)
+    a = Segment(Point2D(0, 5), Point2D(4,4), "a")
+    b = Segment(Point2D(1,0), Point2D(11, 6), "b")
+    c = Segment(Point2D(2,2), Point2D(6, 4), "c")
+    d = Segment(Point2D(3,5), Point2D(10, 3), "d")
+    e = Segment(Point2D(5,6), Point2D(9, 4), "e")
+    f = Segment(Point2D(7,2), Point2D(8, 1), "f")
+    segments = [a, b, c, d, e, f]
+    for seg in segments:
+        myTree.insert(seg)
+        myTree.inOrderPrint(myTree.root)
+        print("---------------------------------")

@@ -17,13 +17,28 @@ class Segment():
                     print("Weird coordinates result is undefined\n")
         return segments
 
-    def __init__(self, pointA:Point2D, pointB:Point2D):
-        self.first = pointA
-        self.second = pointB
+    def __init__(self, pointA:Point2D, pointB:Point2D, name = None):
+        #first is always the leftmost
+        if pointA.x < pointB.x:
+            self.first = pointA
+            self.second = pointB
+        else:
+            self.first = pointB
+            self.second = pointA
+
+        if name is not None:
+            self.name = name
+            return
         if pointA.name and pointB.name:
             self.name = pointA.name + pointB.name
         else:
             self.name = None
+
+    def __str__(self):
+        representation = "{0}, {1}".format(str(self.first), str(self.second))
+        if self.name is not None:
+            representation += " " + self.name
+        return representation
 
     def intersects(self, other)->bool:
         d1 = CCW_test(other.second, self.first, other.first)
@@ -52,9 +67,25 @@ class Segment():
             return True
         return False;
 
+    def __lt__(self, other):
+        """This method checks whether the current segment is located below the other segment or not.
+        We assume that the segments don't intersect each other, because if they do the intersection
+        happens after the given x (otherwise the algorithm would have returned) """
+
+        if CCW_test(self.second, other.first, self.first) > 0:
+            return True
+        else:
+            return False
+
     def isBelow(self, other, x:float)->bool:
-        #TODO: do computations to check wheter they are below or not
-        return False
+        """This method checks whether the current segment is located below the other segment or not.
+        We assume that the segments don't intersect each other, because if they do the intersection
+        happens after the given x (otherwise the algorithm would have returned) """
+
+        if CCW_test(self.second, other.first, self.first) > 0:
+            return True
+        else:
+            return False
 
 
 if __name__ == "__main__":
