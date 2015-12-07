@@ -3,6 +3,20 @@ from Point2D import Point2D, CCW_test
 
 class Segment():
 
+    def readFromFile(filename:str)->list:
+        segments = []
+        with open(filename) as myfile:
+            file_lines = myfile.readlines()
+            for line in file_lines:
+                coordinates = line.split()
+                if(len(coordinates) == 4):
+                    p1 = Point2D(coordinates[0], coordinates[1])
+                    p2 = Point2D(coordinates[2], coordinates[3])
+                    segments.append(Segment(p1, p2))
+                else:
+                    print("Weird coordinates result is undefined\n")
+        return segments
+
     def __init__(self, pointA:Point2D, pointB:Point2D):
         self.first = pointA
         self.second = pointB
