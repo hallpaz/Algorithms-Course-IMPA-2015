@@ -35,24 +35,27 @@ def hasIntersectionOnSet(setOfSegments, activeSegments):
             activeSegments.insert(currentSegment)
 
             #activeSegments.inOrderPrint(activeSegments.root)
-            # activeSegments.printNodes()
-            # print("--------------------------------------")
+            activeSegments.printNodes()
+            print("--------------------------------------")
 
             segmentsSeen[currentSegment.id] = True
             aboveSegment = activeSegments.successor(currentSegment)
-            belowSegment = activeSegments.antecesor(currentSegment)
+            belowSegment = activeSegments.antecessor(currentSegment)
+            print("AB", aboveSegment, belowSegment)
             if (aboveSegment is not None) and currentSegment.intersects(aboveSegment.data) or (belowSegment is not None) and currentSegment.intersects(belowSegment.data):
                 return True, (clock() - start)
         else:
             segmentsSeen[currentSegment.id] = False
             aboveSegment = activeSegments.successor(currentSegment)
-            belowSegment = activeSegments.antecesor(currentSegment)
+            belowSegment = activeSegments.antecessor(currentSegment)
+            print("AB REM", aboveSegment, belowSegment)
+
             if((aboveSegment is not None) and (belowSegment is not None) and (aboveSegment.data.intersects(belowSegment.data))):
                 return True
             activeSegments.remove(currentSegment)
 
-            # activeSegments.printNodes()
-            # print("--------------------------------------")
+            activeSegments.printNodes()
+            print("--------------------------------------")
 
     return False, (clock() - start)
 
@@ -94,6 +97,7 @@ def plotPerformanceGraph(limit, times, data_structures, colors, testlabel):
     pyplot.xlabel('N')
     pyplot.ylabel('time (s)')
     pyplot.savefig( images_folder + testlabel + ".png")
+    pyplot.close()
     #pyplot.show()
 
 
@@ -115,10 +119,25 @@ if __name__ == '__main__':
     e = Segment(Point2D(5,6), Point2D(9, 4), "e")
     f = Segment(Point2D(7,2), Point2D(8, 1), "f")
     segments = [a, b, c, d, e, f]
-    #segmentsToPostscript(segments, "teste.eps")
-    #
-    # print(hasIntersectionOnSet(segments))
+    segmentsToPostscript(segments, "teste.eps")
+
+    print(hasIntersectionOnSet(segments, RBTree()))
     #TestData.writeFirstTest()
     #TestData.writeSecondTest()
     #segments = Segment.readFromFile(data_folder + "second_100.txt")
-    print(hasIntersectionOnSet(segments, OrderedDoublyLinkedList()))
+    #print(hasIntersectionOnSet(segments, BinarySearchTree()))
+    # data_structures = [OrderedDoublyLinkedList(), RBTree()]
+    # names = [OrderedDoublyLinkedList.__name__, RBTree.__name__]
+    # colors = dict(zip(names, ["blue", "red"]))
+    # limit = 3
+    # third_test_times = compareDataStructuresPerformance("third_", data_structures, limit)
+    # testlabel = "Second Test"
+    # plotPerformanceGraph(limit, third_test_times, names, colors, testlabel)
+
+
+    # rb_tree = RBTree()
+    # for i in range(100):
+    #     rb_tree.insert(i)
+    #     #print(i)
+    #
+    # print(rb_tree.getHeight())

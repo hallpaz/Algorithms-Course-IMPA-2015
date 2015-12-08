@@ -6,8 +6,8 @@ import random
 
 class Color(Enum):
     """docstring for Color"""
-    Red = 0;
-    Black = 1;
+    Red = 0
+    Black = 1
 
 
 class ListNode():
@@ -135,7 +135,7 @@ class OrderedDoublyLinkedList(DoublyLinkedList):
             return node.next
         return None
 
-    def antecesor(self, value):
+    def antecessor(self, value):
         node = self.find(value)
         if node is not None:
             return node.prev
@@ -147,124 +147,410 @@ class TreeNode():
         self.data = value
         self.left = None
         self.right = None
+        self.parent = None
 
     def __str__(self):
         return str(self.data)
 
+    def insert(self, value):
+        if value < self.data:
+            if self.left is None:
+                node = TreeNode(value)
+                self.left = node
+                node.parent = self
+            else:
+                self.left.insert(value)
+        else:
+            if self.right is None:
+                node = TreeNode(value)
+                self.right = node
+                node.parent = self
+            else:
+                self.right.insert(value)
+
+    def find(self, value):
+        if value == self.data:
+            return self
+
+        if value < self.data:
+            if self.left is not None:
+                return self.left.find(value)
+            return None
+        else:
+            if self.right is not None:
+                return self.right.find(value)
+            return None
+
+
+    def printNodes(self, branch):
+        if branch is None:
+            return
+        self.printNodes(branch.left)
+        print(branch)
+        self.printNodes(branch.right)
+
+    def leftMost(self):
+        if self.left is None:
+            return self
+        return self.left.leftMost()
+
+    def rightMost(self):
+        if self.right is None:
+            return self
+        return self.right.rightMost()
+
+    def successor(self):
+        if self.right is not None:
+            return self.right.leftMost()
+        return None
+
+    def antecessor(self):
+        if self.left is not None:
+            return self.left.rightMost()
+        return None
+
+    def remove(self, value):
+        if self.data == value:
+            if (self.left is not None) and (self.right is not None):
+                substitute = self.successor()
+                if substitute.parent.left == substitute:
+                    substitute.parent.left = substitute.right
+                else:
+                    substitute.parent.right = substitute.right
+
+                if substitute.right is not None:
+                    substitute.right.parent = substitute.parent
+
+                substitute.left = self.left
+                substitute.right = self.right
+                substitute.parent = self.parent
+
+                substitute.right.parent = substitute
+                substitute.left.parent = substitute
+
+                return substitute
+
+            elif self.left is not None:
+                self.left.parent = self.parent
+                return self.left
+            elif self.right is not None:
+                self.right.parent = self.parent
+                return self.right
+            else:
+                return None
+        else:
+            if value < self.data:
+                if self.left is not None:
+                    self.left = self.left.remove(value)
+            else:
+                if self.right is not None:
+                    self.right = self.right.remove(value)
+        return  self
+
+
+    def getHeight(self):
+        if (self.left is None) and (self.right is None):
+            return 0
+        elif self.left is not None:
+            return self.left.getHeight() + 1
+        elif self.right is not None:
+            return self.right.getHeight() + 1
+        else:
+            return max(self.left.getHeight(), self.right.getHeight()) + 1
+
 class BinarySearchTree():
     def __init__(self, value = None):
+        self.root = None
         if value is not None:
-            node = TreeNode(value)
-            self.root = node
+            self.insert(value)
+
+    def insert(self, value):
+        if self.root is not None:
+            self.root.insert(value)
         else:
-            self.root = None
+            self.root = TreeNode(value)
 
-    def insert(self, value, branch = None):
-        branch = branch or self.root
-        if self.root is None:
-            node = TreeNode(value)
-            self.root = node
-        else:
-            if value < branch.data:
-                if branch.left is None:
-                    node = TreeNode(value)
-                    branch.left = node
-                else:
-                    self.insert(value, branch.left)
-            else:
-                if branch.right is None:
-                    node = TreeNode(value)
-                    branch.right = node
-                else:
-                    self.insert(value, branch.right)
+    def find(self, value):
+        if self.root is not None:
+            return self.root.find(value)
+        return None
 
-    def inOrderPrint(self, branch):
-        if(branch is None):
-            return
+    def successor(self, value):
+        node = self.find(value)
+        if node is not None:
+            return node.successor()
+        return None
 
-        self.inOrderPrint(branch.left)
-        print(branch)
-        self.inOrderPrint(branch.right)
+    def antecessor(self, value):
+        node = self.find(value)
+        if node is not None:
+            return node.antecessor()
+        return None
+
+    def remove(self, value):
+        if self.root is not None:
+            self.root = self.root.remove(value)
+
+    def printNodes(self):
+        if self.root is not None:
+            self.root.printNodes(self.root)
+
+    def getHeight(self):
+        if self.root is not None:
+            return self.root.getHeight()
+        return 0
+
+# def inOrderPrint(self, branch):
+#     if(branch is None):
+#         return
+#
+#     self.inOrderPrint(branch.left)
+#     print(branch)
+#     self.inOrderPrint(branch.right)
 
 
-    def leftMost(self, node):
-        if node.left is None:
-            return node
-        return self.leftMost(node.left)
+class SentinelNIL():
+    """docstring for NIL"""
+    def __init__(self):
+        self.data = 0
+        self.parent = None
+        self.left = None
+        self.right = None
+        self.color = Color.Black
 
-    def rightMost(self, node):
-        if node.right is None:
-            return node
-        return self.rightMost(node.right)
 
-    def find(self, value, branch):
-        if self.root is None:
-            return None
-        if branch.data == value:
-            return branch
-        if value < branch.data:
-            return self.find(value, branch.left)
-        else:
-            return self.find(value, branch.right)
+    def __str__(self):
+        return "NIL SENTINEL"
 
-    def remove(self, value, branch = None):
-        branch = branch or self.root
-
-        parent = branch
-        fromLeft = True
-
-        while(branch.data != value):
-            if value < branch.data:
-                parent = branch
-                branch = branch.left
-                fromLeft = True
-            else:
-                parent = branch
-                branch = branch.right
-                fromLeft = False
-
-        if (branch.left is not None)  and (branch.right is not None):
-            node = self.leftMost(branch.right)
-            self.remove(node.data, branch.right)
-            branch.data = node.data
-        elif branch.left:
-            if fromLeft:
-                parent.left = branch.left
-            else:
-                parent.right = branch.left
-        elif branch.right:
-            if fromLeft:
-                parent.left = branch.right
-            else:
-                parent.right = branch.right
-        else:
-            if fromLeft:
-                parent.left = None
-            else:
-                parent.right = None
-
-    def successor(self, value)->TreeNode:
-        node = self.find(value, self.root)
-        if node.right is None:
-            return None
-        return self.leftMost(node.right)
-
-    def antecesor(self, value)->TreeNode:
-        node = self.find(value, self.root)
-        if node.left is None:
-            return None
-        return self.rightMost(node.left)
 
 class RBNode(TreeNode):
     """docstring for RBNode"""
+    NIL = SentinelNIL()
+
     def __init__(self, value):
-        super(RBNode, self).__init__()
+        self.data = value
+        self.parent = RBNode.NIL
+        self.left = RBNode.NIL
+        self.right = RBNode.NIL
         self.color = Color.Red
 
 
-class RBTree(BinarySearchTree):
-    pass
+    def successor(self):
+        if self.right != RBNode.NIL:
+            return self.right.leftMost()
+        return None
 
+    def antecessor(self):
+        if self.left != RBNode.NIL:
+            return self.left.rightMost()
+        return None
+
+    def leftMost(self):
+        if self.left == RBNode.NIL:
+            return self
+        return self.left.leftMost()
+
+    def rightMost(self):
+        if self.right == RBNode.NIL:
+            return self
+        return self.right.rightMost()
+
+    def insert(self, value):
+        if value < self.data:
+            if self.left is RBNode.NIL:
+                node = RBNode(value)
+                self.left = node
+                node.parent = self
+                return node
+                #self.insert_fixup(node)
+            else:
+                return self.left.insert(value)
+        else:
+            if self.right is RBNode.NIL:
+                node = RBNode(value)
+                self.right = node
+                node.parent = self
+                return node
+                #ATTENTION
+                #self.insert_fixup(node)
+            else:
+                return self.right.insert(value)
+
+    def getHeight(self):
+        if (self.left is RBNode.NIL) and (self.right is RBNode.NIL):
+            return 0
+        elif self.left is not RBNode.NIL:
+            return self.left.getHeight() + 1
+        elif self.right is not RBNode.NIL:
+            return self.right.getHeight() + 1
+        else:
+            return max(self.left.getHeight(), self.right.getHeight()) + 1
+
+class RBTree(BinarySearchTree):
+    def __init__(self):
+        self.root = RBNode.NIL
+
+    def insert(self, value):
+        if self.root != RBNode.NIL:
+            inserted_node = self.root.insert(value)
+            # if inserted_node is None:
+            #     print("none aqui")
+            self.insert_fixup(inserted_node)
+        else:
+            self.root = RBNode(value)
+            self.root.color = Color.Black
+        #self.insert_fixup(value)
+
+    def left_rotate(self, pivot):
+        y = pivot.right
+        pivot.right = y.left
+
+        if y.left != RBNode.NIL:
+            y.left.parent = pivot
+        y.parent = pivot.parent
+        if pivot.parent == RBNode.NIL:
+            self.root = y
+        elif pivot == pivot.parent.left:
+            pivot.parent.left = y
+        else:
+            pivot.parent.right = y
+
+        y.left = pivot
+        pivot.parent = y
+
+
+    def right_rotate(self, pivot):
+        x = pivot.left
+        pivot.left = x.right
+
+        if x.right != RBNode.NIL:
+            x.right.parent = pivot
+        x.parent = pivot.parent
+        if pivot.parent == RBNode.NIL:
+            self.root = x
+        elif pivot.parent.left == pivot:
+            pivot.parent.left = x
+        else:
+            pivot.parent.right = x
+
+        x.right = pivot
+        pivot.parent = x
+
+
+    def insert_fixup(self, z):
+        #print("fixing")
+        while  (z != self.root) and (z.parent.color is Color.Red):
+            #print("root", self.root)
+            if z.parent == (z.parent).parent.left:
+                y = (z.parent).parent.right
+                if y.color is Color.Red:
+                    z.parent.color = Color.Black
+                    y.color = Color.Black
+                    (z.parent).parent.color = Color.Red
+                    z = (z.parent).parent
+                else:
+                    if z == z.parent.right:
+                        z = z.parent
+                        self.left_rotate(z)
+                    z.parent.color = Color.Black
+                    z.parent.parent.color = Color.Red
+                    self.right_rotate(z.parent.parent)
+            else:
+                y = (z.parent).parent.left
+                if y.color is Color.Red:
+                    z.parent.color = Color.Black
+                    y.color = Color.Black
+                    (z.parent).parent.color = Color.Red
+                    z = (z.parent).parent
+                else:
+                    if z == z.parent.left:
+                        z = z.parent
+                        self.right_rotate(z)
+                    z.parent.color = Color.Black
+
+                    z.parent.parent.color = Color.Red
+                    self.left_rotate(z.parent.parent)
+        self.root.color = Color.Black
+
+
+    def remove(self, value):
+        node = self.find(value)
+        if node is None:
+            node = RBNode.NIL
+        #print("to be removed: ", node)
+        y = x = RBNode.NIL
+        if (node.left is RBNode.NIL) or (node.right is RBNode.NIL):
+            y = node
+        else:
+            y = node.successor()
+            if y is None:
+                y = RBNode.NIL
+        if y.left != RBNode.NIL:
+            x = y.left
+        else:
+            x = y.right
+
+        x.parent = y.parent
+
+        if y.parent is RBNode.NIL:
+            self.root = x
+        else:
+            if y == y.parent.left:
+                y.parent.left = x
+            else:
+                y.parent.right = x
+
+        if y != node:
+            node.data = y.data
+        if y.color is Color.Black:
+                self.remove_fixup(x)
+        return y
+
+    def remove_fixup(self, x):
+        while (x != self.root) and (x.color is Color.Black):
+            if x == x.parent.left:
+                w = x.parent.right
+                if w.color is Color.Red:
+                    w.color = Color.Black
+                    x.parent.color = Color.Red
+                    self.left_rotate(x.parent)
+                    w = x.parent.right
+                if w.left.color is Color.Black and w.right.color is Color.Black:
+                    w.color = Color.Red
+                    x = x.parent
+                else:
+                    if w.right.color is Color.Black:
+                        w.left.color = Color.Black
+                        w.color = Color.Red
+                        self.right_rotate(w)
+                        w = x.parent.right
+                    w.color = x.parent.color
+                    x.parent.color = Color.Black
+                    w.right.color = Color.Black
+                    self.left_rotate(x.parent)
+                    x = self.root
+            else:
+                w = x.parent.left
+                if w.color is Color.Red:
+                    w.color = Color.Black
+                    x.parent.color = Color.Red
+                    self.right_rotate(x.parent)
+                    w = x.parent.left
+                if w.right.color is Color.Black and w.left.color is Color.Black:
+                    w.color = Color.Red
+                    x = x.parent
+                else:
+                    if w.left.color is Color.Black:
+                        w.right.color = Color.Black
+                        w.color = Color.Red
+                        self.left_rotate(w)
+                        w = x.parent.left
+                    w.color = x.parent.color
+                    x.parent.color = Color.Black
+                    w.left.color = Color.Black
+                    self.right_rotate(x.parent)
+                    x = self.root
+            x.color = Color.Black
 
 if __name__ == '__main__':
 
