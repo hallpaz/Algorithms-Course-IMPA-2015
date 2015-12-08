@@ -7,11 +7,11 @@ class Segment():
         segments = []
         with open(filename) as myfile:
             file_lines = myfile.readlines()
-            for line in file_lines:
+            for line in file_lines[1:]:
                 coordinates = line.split()
                 if(len(coordinates) == 4):
-                    p1 = Point2D(coordinates[0], coordinates[1])
-                    p2 = Point2D(coordinates[2], coordinates[3])
+                    p1 = Point2D(float(coordinates[0]), float(coordinates[1]))
+                    p2 = Point2D(float(coordinates[2]), float(coordinates[3]))
                     segments.append(Segment(p1, p2))
                 else:
                     print("Weird coordinates result is undefined\n")

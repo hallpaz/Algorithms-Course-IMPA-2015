@@ -67,8 +67,18 @@ class DoublyLinkedList():
 
     def remove(self, value):
         node = self.find(value)
-        node.prev.next = node.next
-        node.next.prev = node.prev
+
+        if node == self.head:
+            self.head = node.next
+            if node.next:
+                node.next.prev = None
+        elif node == self.tail:
+            self.tail = node.prev
+            if node.prev:
+                node.prev.next = None
+        else:
+            node.prev.next = node.next
+            node.next.prev = node.prev
 
         node.next = None
         node.prev = None
@@ -198,8 +208,7 @@ class BinarySearchTree():
             return self.find(value, branch.right)
 
     def remove(self, value, branch = None):
-        if branch is None:
-            branch = self.root
+        branch = branch or self.root
 
         parent = branch
         fromLeft = True
@@ -214,7 +223,7 @@ class BinarySearchTree():
                 branch = branch.right
                 fromLeft = False
 
-        if branch.left and branch.right:
+        if (branch.left is not None)  and (branch.right is not None):
             node = self.leftMost(branch.right)
             self.remove(node.data, branch.right)
             branch.data = node.data
@@ -253,9 +262,8 @@ class RBNode(TreeNode):
         self.color = Color.Red
 
 
-class RBTree():
-    def __init__(self, arg):
-        pass
+class RBTree(BinarySearchTree):
+    pass
 
 
 if __name__ == '__main__':

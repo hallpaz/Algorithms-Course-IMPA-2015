@@ -1,10 +1,15 @@
+from copy import deepcopy
 from DataStructures import BinarySearchTree, OrderedDoublyLinkedList, RBTree
 from Segment import Segment
 from Point2D import Point2D
+from time import clock
+import TestData
+import matplotlib.pyplot as pyplot
 
+data_folder = "data/"
+images_folder = "images/"
 
-
-def hasIntersectionOnSet(setOfSegments):
+def hasIntersectionOnSet(setOfSegments, activeSegments):
     idCounter = 0
     setOfPoints = []
     for segment in setOfSegments:
@@ -19,40 +24,87 @@ def hasIntersectionOnSet(setOfSegments):
 
     segmentsSeen = [False for i in range(idCounter+1)]
     #sort points lexicographically
+    start = clock()
     setOfPoints = sorted(setOfPoints, key=lambda p:(p.x, p.y))
-
-    processingSegments = OrderedDoublyLinkedList()
-    #processingSegments = BinarySearchTree()
 
     for point in setOfPoints:
         currentSegment = setOfSegments[point.id]
-        print("Current Point: ", point)
+        #print("Current Point: ", point)
         #first endpoint
         if(not segmentsSeen[point.id]):
-            processingSegments.insert(currentSegment)
+            activeSegments.insert(currentSegment)
 
-            #processingSegments.inOrderPrint(processingSegments.root)
-            processingSegments.printNodes()
-            print("--------------------------------------")
+            #activeSegments.inOrderPrint(activeSegments.root)
+            # activeSegments.printNodes()
+            # print("--------------------------------------")
 
             segmentsSeen[currentSegment.id] = True
-            aboveSegment = processingSegments.successor(currentSegment)
-            belowSegment = processingSegments.antecesor(currentSegment)
+            aboveSegment = activeSegments.successor(currentSegment)
+            belowSegment = activeSegments.antecesor(currentSegment)
             if (aboveSegment is not None) and currentSegment.intersects(aboveSegment.data) or (belowSegment is not None) and currentSegment.intersects(belowSegment.data):
-                return True
+                return True, (clock() - start)
         else:
             segmentsSeen[currentSegment.id] = False
-            aboveSegment = processingSegments.successor(currentSegment)
-            belowSegment = processingSegments.antecesor(currentSegment)
+            aboveSegment = activeSegments.successor(currentSegment)
+            belowSegment = activeSegments.antecesor(currentSegment)
             if((aboveSegment is not None) and (belowSegment is not None) and (aboveSegment.data.intersects(belowSegment.data))):
                 return True
-            processingSegments.remove(currentSegment)
+            activeSegments.remove(currentSegment)
 
-            processingSegments.printNodes()
-            print("--------------------------------------")
+            # activeSegments.printNodes()
+            # print("--------------------------------------")
 
-    return False
+    return False, (clock() - start)
 
+
+def compareDataStructuresPerformance(testPrefix, data_structures, limit):
+    N = 1
+    times = []
+    counter = 0
+    for i in data_structures:
+        times.append([])
+        counter +=1
+
+    for i in range(limit):
+        N = N*10
+        segments = Segment.readFromFile(data_folder + testPrefix + str(N) + ".txt")
+        index = 0
+        for data_structure in data_structures:
+            #t = clock()
+            structure = deepcopy(data_structure)
+            result, t = hasIntersectionOnSet(segments, structure)
+            #t = clock() - t
+            times[index].append(t)
+            index = (index + 1)%counter
+    return times
+
+def plotPerformanceGraph(limit, times, data_structures, colors, testlabel):
+
+    x = [10**i for i in range(1, limit+1)]
+
+    #data_structures contains the names of the data strcutures used
+    index = 0
+    for data_structure in data_structures:
+        pyplot.plot(x, times[index], color = colors[data_structure], label = data_structure)
+        index += 1
+
+    #pyplot.axis([ 0, xlimit, 0, 20 ])
+    pyplot.legend()
+    pyplot.title("Line sweep performance comparison for different data structures")
+    pyplot.xlabel('N')
+    pyplot.ylabel('time (s)')
+    pyplot.savefig( images_folder + testlabel + ".png")
+    #pyplot.show()
+
+
+def segmentsToPostscript(setOfSegments, filename):
+    with open(filename, "w") as myfile:
+        myfile.write("0.1 setlinewidth\n")
+        for segment in setOfSegments:
+            myfile.write("{0} {1} moveto\n".format(segment.first.x, segment.first.y))
+            myfile.write("{0} {1} lineto\n".format(segment.second.x, segment.second.y))
+        myfile.write("0 setgray\n")
+        myfile.write("stroke")
 
 if __name__ == '__main__':
     print("Called main module")
@@ -63,5 +115,10 @@ if __name__ == '__main__':
     e = Segment(Point2D(5,6), Point2D(9, 4), "e")
     f = Segment(Point2D(7,2), Point2D(8, 1), "f")
     segments = [a, b, c, d, e, f]
-
-    print(hasIntersectionOnSet(segments))
+    #segmentsToPostscript(segments, "teste.eps")
+    #
+    # print(hasIntersectionOnSet(segments))
+    #TestData.writeFirstTest()
+    #TestData.writeSecondTest()
+    #segments = Segment.readFromFile(data_folder + "second_100.txt")
+    print(hasIntersectionOnSet(segments, OrderedDoublyLinkedList()))
