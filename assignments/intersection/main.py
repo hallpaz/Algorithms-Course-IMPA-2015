@@ -35,27 +35,28 @@ def hasIntersectionOnSet(setOfSegments, activeSegments):
             activeSegments.insert(currentSegment)
 
             #activeSegments.inOrderPrint(activeSegments.root)
-            activeSegments.printNodes()
-            print("--------------------------------------")
+            #activeSegments.printNodes()
+
 
             segmentsSeen[currentSegment.id] = True
-            aboveSegment = activeSegments.successor(currentSegment)
-            belowSegment = activeSegments.antecessor(currentSegment)
-            print("AB", aboveSegment, belowSegment)
+            aboveSegment = activeSegments.antecessor(currentSegment)
+            belowSegment = activeSegments.successor(currentSegment)
+            #print("AB", aboveSegment, belowSegment)
+            #print("--------------------------------------")
             if (aboveSegment is not None) and currentSegment.intersects(aboveSegment.data) or (belowSegment is not None) and currentSegment.intersects(belowSegment.data):
                 return True, (clock() - start)
         else:
             segmentsSeen[currentSegment.id] = False
             aboveSegment = activeSegments.successor(currentSegment)
             belowSegment = activeSegments.antecessor(currentSegment)
-            print("AB REM", aboveSegment, belowSegment)
 
             if((aboveSegment is not None) and (belowSegment is not None) and (aboveSegment.data.intersects(belowSegment.data))):
                 return True
             activeSegments.remove(currentSegment)
 
-            activeSegments.printNodes()
-            print("--------------------------------------")
+            #activeSegments.printNodes()
+            #print("AB REM", aboveSegment, belowSegment)
+            #print("--------------------------------------")
 
     return False, (clock() - start)
 
@@ -111,32 +112,57 @@ def segmentsToPostscript(setOfSegments, filename):
         myfile.write("stroke")
 
 if __name__ == '__main__':
-    print("Called main module")
-    a = Segment(Point2D(0, 5), Point2D(4,4), "a")
-    b = Segment(Point2D(1,0), Point2D(11, 6), "b")
-    c = Segment(Point2D(2,2), Point2D(6, 4), "c")
-    d = Segment(Point2D(3,5), Point2D(10, 3), "d")
-    e = Segment(Point2D(5,6), Point2D(9, 4), "e")
-    f = Segment(Point2D(7,2), Point2D(8, 1), "f")
-    segments = [a, b, c, d, e, f]
-    segmentsToPostscript(segments, "teste.eps")
+    # print("Called main module")
+    # a = Segment(Point2D(0, 5), Point2D(4,4), "a")
+    # b = Segment(Point2D(1,0), Point2D(11, 6), "b")
+    # c = Segment(Point2D(2,2), Point2D(6, 4), "c")
+    # d = Segment(Point2D(3,5), Point2D(10, 3), "d")
+    # e = Segment(Point2D(5,6), Point2D(9, 4), "e")
+    # f = Segment(Point2D(7,2), Point2D(8, 1), "f")
+    # segments = [a, b, c, d, e, f]
+    # segmentsToPostscript(segments, "teste.eps")
+    #
+    # print(hasIntersectionOnSet(segments, RBTree() ))
 
-    print(hasIntersectionOnSet(segments, RBTree()))
+
     #TestData.writeFirstTest()
     #TestData.writeSecondTest()
     #segments = Segment.readFromFile(data_folder + "second_100.txt")
     #print(hasIntersectionOnSet(segments, BinarySearchTree()))
+
+
+    data_structures = [OrderedDoublyLinkedList(), BinarySearchTree()]
+    names = [OrderedDoublyLinkedList.__name__, BinarySearchTree.__name__]
+    colors = dict(zip(names, ["blue", "green"]))
+
+
     # data_structures = [OrderedDoublyLinkedList(), RBTree()]
     # names = [OrderedDoublyLinkedList.__name__, RBTree.__name__]
     # colors = dict(zip(names, ["blue", "red"]))
-    # limit = 3
+
+    # data_structures = [OrderedDoublyLinkedList(), BinarySearchTree(), RBTree()]
+    # names = [OrderedDoublyLinkedList.__name__, BinarySearchTree.__name__, RBTree.__name__]
+    # colors = dict(zip(names, ["blue", "green", "red"]))
+
+
+    limit = 5
+    #
+    # first_test_times = compareDataStructuresPerformance("first_", data_structures, limit)
+    # testlabel = "First Test"
+    # plotPerformanceGraph(limit, first_test_times, names, colors, testlabel)
+
+
+    second_test_times = compareDataStructuresPerformance("second_", data_structures, limit)
+    testlabel = "Second Test"
+    plotPerformanceGraph(limit, second_test_times, names, colors, testlabel)
+
     # third_test_times = compareDataStructuresPerformance("third_", data_structures, limit)
-    # testlabel = "Second Test"
+    # testlabel = "Third Test"
     # plotPerformanceGraph(limit, third_test_times, names, colors, testlabel)
 
 
     # rb_tree = RBTree()
-    # for i in range(100):
+    # for i in range(1000000):
     #     rb_tree.insert(i)
     #     #print(i)
     #

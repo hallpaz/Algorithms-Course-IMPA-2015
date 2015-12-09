@@ -56,7 +56,7 @@ class DoublyLinkedList():
             node.prev = self.tail
             self.tail = node
 
-    def find(self, value)->ListNode:
+    def find(self, value):
         currentNode = self.head
         while(currentNode is not None):
             if currentNode.data == value:
@@ -202,12 +202,24 @@ class TreeNode():
     def successor(self):
         if self.right is not None:
             return self.right.leftMost()
-        return None
+
+        parent = self.parent
+        aux = self
+        while parent is not None and aux == parent.right:
+            aux = parent
+            parent = parent.parent
+        return parent
 
     def antecessor(self):
         if self.left is not None:
             return self.left.rightMost()
-        return None
+
+        parent = self.parent
+        aux = self
+        while parent is not None and aux == parent.left:
+            aux = parent
+            parent = parent.parent
+        return parent
 
     def remove(self, value):
         if self.data == value:
@@ -225,8 +237,10 @@ class TreeNode():
                 substitute.right = self.right
                 substitute.parent = self.parent
 
-                substitute.right.parent = substitute
-                substitute.left.parent = substitute
+                if substitute.right is not None:
+                    substitute.right.parent = substitute
+                if substitute.left is not None:
+                    substitute.left.parent = substitute
 
                 return substitute
 
@@ -312,15 +326,24 @@ class BinarySearchTree():
 class SentinelNIL():
     """docstring for NIL"""
     def __init__(self):
-        self.data = 0
-        self.parent = None
-        self.left = None
-        self.right = None
+        self.data = 7777777
+        self.parent = self
+        self.left = self
+        self.right = self
         self.color = Color.Black
 
 
     def __str__(self):
         return "NIL SENTINEL"
+
+    def __eq__(self, other):
+        #if (type(other.data) is type(self.data)):
+        if other.data == self.data:
+            return True
+        return False
+
+    def __ne__(self, other):
+        return not (self.__eq__(other))
 
 
 class RBNode(TreeNode):
@@ -335,15 +358,51 @@ class RBNode(TreeNode):
         self.color = Color.Red
 
 
+    def find(self, value):
+        if value == self.data:
+            return self
+
+        if value < self.data:
+            if self.left != RBNode.NIL:
+                return self.left.find(value)
+            return None
+        else:
+            if self.right != RBNode.NIL:
+                return self.right.find(value)
+            return None
+
+    def printNodes(self, branch):
+        if branch == RBNode.NIL:
+            return
+        self.printNodes(branch.left)
+        print(branch)
+        self.printNodes(branch.right)
+
     def successor(self):
         if self.right != RBNode.NIL:
             return self.right.leftMost()
-        return None
+
+        parent = self.parent
+        aux = self
+        while parent != RBNode.NIL and aux == parent.right:
+            aux = parent
+            parent = parent.parent
+        if parent == RBNode.NIL:
+            parent = None
+        return parent
 
     def antecessor(self):
         if self.left != RBNode.NIL:
             return self.left.rightMost()
-        return None
+
+        parent = self.parent
+        aux = self
+        while parent != RBNode.NIL and aux == parent.left:
+            aux = parent
+            parent = parent.parent
+        if parent == RBNode.NIL:
+            parent = None
+        return parent
 
     def leftMost(self):
         if self.left == RBNode.NIL:
@@ -357,7 +416,7 @@ class RBNode(TreeNode):
 
     def insert(self, value):
         if value < self.data:
-            if self.left is RBNode.NIL:
+            if self.left == RBNode.NIL:
                 node = RBNode(value)
                 self.left = node
                 node.parent = self
@@ -366,22 +425,21 @@ class RBNode(TreeNode):
             else:
                 return self.left.insert(value)
         else:
-            if self.right is RBNode.NIL:
+            if self.right == RBNode.NIL:
                 node = RBNode(value)
                 self.right = node
                 node.parent = self
                 return node
-                #ATTENTION
                 #self.insert_fixup(node)
             else:
                 return self.right.insert(value)
 
     def getHeight(self):
-        if (self.left is RBNode.NIL) and (self.right is RBNode.NIL):
+        if (self.left == RBNode.NIL) and (self.right == RBNode.NIL):
             return 0
-        elif self.left is not RBNode.NIL:
+        elif self.left != RBNode.NIL:
             return self.left.getHeight() + 1
-        elif self.right is not RBNode.NIL:
+        elif self.right != RBNode.NIL:
             return self.right.getHeight() + 1
         else:
             return max(self.left.getHeight(), self.right.getHeight()) + 1
@@ -390,16 +448,46 @@ class RBTree(BinarySearchTree):
     def __init__(self):
         self.root = RBNode.NIL
 
-    def insert(self, value):
+    def printNodes(self):
         if self.root != RBNode.NIL:
-            inserted_node = self.root.insert(value)
-            # if inserted_node is None:
-            #     print("none aqui")
-            self.insert_fixup(inserted_node)
+            self.root.printNodes(self.root)
+
+    def find(self, value):
+        if self.root != RBNode.NIL:
+            return self.root.find(value)
+        return None
+
+    # def insert(self, value):
+    #     if self.root != RBNode.NIL:
+    #         #print(self.root, self.root == RBNode.NIL, self.root == RBNode.NIL)
+    #         inserted_node = self.root.insert(value)
+    #         self.insert_fixup(inserted_node)
+    #     else:
+    #         self.root = RBNode(value)
+    #         self.root.color = Color.Black
+
+    def insert(self, value):
+        node = RBNode(value)
+        y = RBNode.NIL
+        x = self.root
+        while x != RBNode.NIL:
+            y = x
+            if node.data < x.data:
+                x = x.left
+            else:
+                x = x.right
+        node.parent = y
+        if y == RBNode.NIL:
+            self.root = node
         else:
-            self.root = RBNode(value)
-            self.root.color = Color.Black
-        #self.insert_fixup(value)
+            if node.data < y.data:
+                y.left = node
+            else:
+                y.right = node
+        node.left = RBNode.NIL
+        node.right = RBNode.NIL
+        node.color = Color.Red
+        self.insert_fixup(node)
 
     def left_rotate(self, pivot):
         y = pivot.right
@@ -439,7 +527,8 @@ class RBTree(BinarySearchTree):
 
     def insert_fixup(self, z):
         #print("fixing")
-        while  (z != self.root) and (z.parent.color is Color.Red):
+        #while  (z != self.root) and (z.parent.color is Color.Red):
+        while z.parent.color is Color.Red:
             #print("root", self.root)
             if z.parent == (z.parent).parent.left:
                 y = (z.parent).parent.right
@@ -457,6 +546,8 @@ class RBTree(BinarySearchTree):
                     self.right_rotate(z.parent.parent)
             else:
                 y = (z.parent).parent.left
+                if y is None:
+                    y = RBNode.NIL
                 if y.color is Color.Red:
                     z.parent.color = Color.Black
                     y.color = Color.Black
@@ -476,10 +567,10 @@ class RBTree(BinarySearchTree):
     def remove(self, value):
         node = self.find(value)
         if node is None:
-            node = RBNode.NIL
+            return
         #print("to be removed: ", node)
         y = x = RBNode.NIL
-        if (node.left is RBNode.NIL) or (node.right is RBNode.NIL):
+        if (node.left == RBNode.NIL) or (node.right == RBNode.NIL):
             y = node
         else:
             y = node.successor()
@@ -492,7 +583,7 @@ class RBTree(BinarySearchTree):
 
         x.parent = y.parent
 
-        if y.parent is RBNode.NIL:
+        if y.parent == RBNode.NIL:
             self.root = x
         else:
             if y == y.parent.left:
